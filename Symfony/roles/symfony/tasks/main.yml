@@ -1,0 +1,7 @@
+---
+- name: Get the Symfony installer
+  shell: sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
+
+- name: Set permissions to the Symfony installer
+  become: yes
+  file: path=/usr/local/bin/symfony mode=a+x

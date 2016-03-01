@@ -1,0 +1,26 @@
+---
+- name: Install PHP
+  become: yes
+  apt: pkg={{ php_conf.php_package }} state=latest
+
+- name: Install PHP FPM
+  become: yes
+  apt: pkg={{ php_conf.php_fpm_package }} state=latest
+
+- name: Install PHP tools
+  become: yes
+  apt: pkg={{ item }} state=latest
+  with_items: "{{ php_conf.tools }}"
+
+- name: Install PHP extensions
+  become: yes
+  apt: pkg={{ item }} state=latest
+  with_items: "{{ php_conf.extensions }}"
+
+- name: Install PHP extensions via PECL
+  become: yes
+  shell: "pecl install {{ item }}"
+  with_items: "{{ php_conf.pecl_extensions }}"
+
+- name: Configure PHP
+  include: configure.yml

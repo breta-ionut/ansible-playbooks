@@ -1,0 +1,22 @@
+server:
+    packages: [nano, vim, curl]
+    timezone: Europe/Bucharest
+    locale: en_US.UTF-8
+
+mysql:
+    root_password: ''
+
+samba:
+    password: Samba@12345
+    share_root: /var/www/
+
+apps:
+    symfony:
+        mysql_database: symfony
+        mysql_user: symfony
+        mysql_password: 12345
+        docroot: /var/www/symfony/web
+        root_dir: symfony
+        servername: symfony
+        name: symfony
+        symfony_version: 3.0
