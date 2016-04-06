@@ -1,0 +1,34 @@
+---
+- name: Remove Apache2
+  become: yes
+  apt: name=apache2 state=absent
+
+- name: Install Nginx
+  become: yes
+  apt: pkg=nginx state=latest force=yes
+
+- name: Configure Nginx to include the virtual hosts files
+  become: yes
+  lineinfile: dest=/etc/nginx/nginx.conf insertafter="include \/etc\/nginx\/conf\.d\/\*\.conf\;$" line="    include /etc/nginx/sites-enabled/*;"
+
+- name: Create virtual hosts directories
+  become: yes
+  file: path=/etc/nginx/{{ item }} state=directory mode=0755
+  with_items:
+    - sites-available
+    - sites-enabled
+
+- name: Configure the virtual hosts for the front & API applications
+  become: yes
+  template: src={{ item }}.tpl dest=/etc/nginx/sites-available/{{ item }}
+  with_items:
+    - front
+    - api
+
+- name: Enabled the configured virtual hosts
+  become: yes
+  file: src=/etc/nginx/sites-available/{{ item }} dest=/etc/nginx/sites-enabled/{{ item }} state=link
+  with_items:
+    - front
+    - api
+  notify: "restart nginx"

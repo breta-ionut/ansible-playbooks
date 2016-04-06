@@ -1,0 +1,16 @@
+---
+- name: Fetch Node.JS configuration script
+  become: yes
+  get_url: url=https://deb.nodesource.com/setup_5.x dest=/tmp/install-nodejs mode=0744 force=yes
+
+- name: Run Node.JS configuration script
+  become: yes
+  shell: /tmp/install-nodejs
+
+- name: Remove Node.JS configuration script
+  become: yes
+  file: path=/tmp/install-nodejs state=absent
+
+- name: Install Node.JS
+  become: yes
+  apt: pkg=nodejs

@@ -1,0 +1,19 @@
+---
+- name: Create application directories
+  become: yes
+  file: path={{ item }} state=directory owner=vagrant group=vagrant mode=0745 recurse=yes
+  with_items:
+    - "{{ api.doc_root }}"
+    - "{{ front.doc_root }}"
+
+- name: Install Bower
+  become: yes
+  npm: name=bower global=yes
+
+- name: Install Gulp
+  become: yes
+  npm: name=gulp-cli global=yes
+
+- name: Install PM2
+  become: yes
+  npm: name=pm2 global=yes
