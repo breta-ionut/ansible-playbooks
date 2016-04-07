@@ -6,14 +6,13 @@
     - "{{ api.doc_root }}"
     - "{{ front.doc_root }}"
 
-- name: Install Bower
-  become: yes
-  npm: name=bower global=yes
+- name: Install Gulp, Bower and Forever
+  npm: name={{ item }} global=yes
+  with_items:
+    - gulp-cli
+    - bower
+    - forever
 
-- name: Install Gulp
+- name: Configure the API application to start at the system boot
   become: yes
-  npm: name=gulp-cli global=yes
-
-- name: Install PM2
-  become: yes
-  npm: name=pm2 global=yes
+  template: src=api-run.conf.tpl dest=/etc/init/api-run.conf mode=0644

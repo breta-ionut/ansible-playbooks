@@ -14,3 +14,7 @@
 - name: Install Node.JS
   become: yes
   apt: pkg=nodejs
+
+- name: Create the "node" user
+  become: yes
+  user: name=node
