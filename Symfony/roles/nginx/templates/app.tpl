@@ -1,8 +1,8 @@
 server {
-    server_name {{ item.value.servername }};
+    server_name {{ item.value.server_name }};
     listen 80;
 
-    root {{ item.value.docroot }};
+    root {{ item.value.doc_root_path }};
     
     error_log /var/log/nginx/{{ item.value.name }}_error.log;
     access_log /var/log/nginx/{{ item.value.name }}_access.log;

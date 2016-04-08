@@ -15,8 +15,9 @@ apps:
         mysql_database: symfony
         mysql_user: symfony
         mysql_password: 12345
-        docroot: /var/www/symfony/web
+        doc_root_path: /var/www/symfony/web
+        parent_path: /var/www
         root_dir: symfony
-        servername: symfony
+        server_name: symfony
         name: symfony
         symfony_version: 3.0

@@ -23,10 +23,6 @@
   template: src=app.tpl dest=/etc/nginx/sites-available/{{ item.value.name }}
   with_dict: "{{ apps }}"
 
-- name: Create the apps directiory
-  become: yes
-  file: path=/var/www state=directory mode=0755
-
 - name: Enabled the configured virtual hosts
   become: yes
   file: src=/etc/nginx/sites-available/{{ item.value.name }} dest=/etc/nginx/sites-enabled/{{ item.value.name }} state=link
