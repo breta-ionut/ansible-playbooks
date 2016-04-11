@@ -30,10 +30,10 @@
   with_dict: "{{ apps }}"
 
 - name: Install the permission fixer script in the applications
-  template: src="permissions.sh.sf{{ item.value.symfony_version|int }}.tpl" path="{{ item.value.parent_path}}/{{ item.value.root_dir }}/permissions.sh" owner=vagrant group=vagrant mode=0744
+  template: src="permissions.sh.sf{{ item.value.symfony_version|int }}.tpl" dest="{{ item.value.parent_path}}/{{ item.value.root_dir }}/permissions.sh" owner=vagrant group=vagrant mode=0744
   with_dict: "{{ apps }}"
 
 - name: Run the permission fixer scripts
   become: yes
-  shell: "{{ item.value.parent_path}}/{{ item.value.root_dir }}/permissions.sh"
+  shell: ./permissions.sh chdir="{{ item.value.parent_path}}/{{ item.value.root_dir }}"
   with_dict: "{{ apps }}"
