@@ -11,13 +11,24 @@ sudo chown -R vagrant:vagrant .
 sudo chmod -R 0744 .
 sudo find ./ -type d -print0 | sudo xargs -0 chmod 0745 
 
+# Here we define the set of files which will be executable. You may modify
+# it depending on your needs.
+executable=( "./bin/console" )
+for file in "${executable[@]}"
+do
+	if [ -e "$file" ];
+	then
+		sudo chmod 0745 $file
+	fi
+done
+
 # Here we define the set of files which will be owned by www-data. You may
 # modify it depending on your needs.
 writable=( "./var" )
-for i in "${writable[@]}"
+for file in "${writable[@]}"
 do
-    if [ -e "$i" ];
+    if [ -e "$file" ];
     then
-        sudo chown -R www-data:www-data $i
+        sudo chown -R www-data:www-data $file
     fi
 done
