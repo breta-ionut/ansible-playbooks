@@ -1,7 +1,7 @@
 ---
 - name: Fetch Node.JS configuration script
   become: yes
-  get_url: url=https://deb.nodesource.com/setup_5.x dest=/tmp/install-nodejs mode=0744 force=yes
+  get_url: url=https://deb.nodesource.com/setup_6.x dest=/tmp/install-nodejs mode=0744 force=yes
 
 - name: Run Node.JS configuration script
   become: yes
