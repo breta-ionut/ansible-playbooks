@@ -269,4 +269,4 @@ writable = yes
 force user = vagrant
 force group = vagrant
 create mode = 0744
-directory mode = 0744
+directory mode = 0745
