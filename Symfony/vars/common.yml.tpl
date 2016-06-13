@@ -1,5 +1,5 @@
 server:
-    packages: [nano, vim, curl]
+    packages: [nano, vim, curl, git]
     timezone: Europe/Bucharest
     locale: en_US.UTF-8
 
