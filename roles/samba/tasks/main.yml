@@ -3,7 +3,8 @@
   apt: pkg=samba state=installed
 
 - name: Add the Samba user
-  shell: sudo echo -e "{{ samba.password }}\n{{ samba.password }}" | sudo smbpasswd -s -a vagrant
+  become: yes
+  shell: echo -e "{{ samba.password }}\n{{ samba.password }}" | sudo smbpasswd -s -a vagrant
 
 - name: Configure Samba
   become: yes
