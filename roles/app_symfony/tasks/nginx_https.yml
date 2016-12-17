@@ -1,0 +1,36 @@
+---
+- name: Generate self signed SSL certificates for the https apps
+  become: yes
+  command: >
+    openssl req
+      -new
+      -newkey rsa:2048
+      -days 365
+      -nodes
+      -x509
+      -subj "/C=RO/ST=B/L=B/O=NA/CN={{ item.value.server_name }}"
+      -keyout /etc/nginx/ssl/{{ item.value.name }}.key
+      -out /etc/nginx/ssl/{{ item.value.name }}.pem
+  args:
+    creates: /etc/nginx/ssl/{{ item.value.name }}.pem
+  when: {{ item.value.https | default(true) | bool }}
+  with_dict: {{ apps }}
+
+- name: Change permissions on SSL certificates
+  become: yes
+  file: path=/etc/nginx/ssl/{{ item.value.name }}.pem owner=root group=root permissions=0600
+  when: {{ item.value.https | default(true) | bool }}
+  with_dict: {{ apps }}
+
+- name: Change permissions on SSL keys
+  become: yes
+  file: path=/etc/nginx/ssl/{{ item.value.name }}.key owner=root group=root permissions=0600
+  when: {{ item.value.https | default(true) | bool }}
+  with_dict: {{ apps }}
+
+- name: Configure the virtual hosts for the https applications
+  become: yes
+  template: src=nginx/app_https.tpl dest=/etc/nginx/sites-available/{{ item.value.name }}
+  when: {{ item.value.https | default(true) | bool }}
+  with_dict: {{ apps }}
+  notify: "restart nginx"
