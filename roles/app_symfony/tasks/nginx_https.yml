@@ -30,7 +30,7 @@
 
 - name: Configure the virtual hosts for the https applications
   become: yes
-  template: src=nginx/app_https.tpl dest=/etc/nginx/sites-available/{{ item.value.name }}
+  template: src=nginx_https/app.tpl dest=/etc/nginx/sites-available/{{ item.value.name }}
   when: {{ item.value.https | default(true) | bool }}
   with_dict: {{ apps }}
   notify: "restart nginx"
