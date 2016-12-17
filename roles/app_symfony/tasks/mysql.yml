@@ -1,0 +1,8 @@
+---
+- name: Create databases for all applications
+  mysql_db: name={{ item.value.mysql_database }} state=present login_user=root login_password={{ mysql.root_password }}
+  with_dict: "{{ apps }}"
+
+- name: Create MySQL users for all applications
+  mysql_user: name={{ item.value.mysql_user }} password={{ item.value.mysql_password }} priv={{ item.value.mysql_database }}.*:ALL state=present login_user=root login_password={{ mysql.root_password }}
+  with_dict: "{{ apps }}"

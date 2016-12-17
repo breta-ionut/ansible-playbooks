@@ -1,3 +1,2 @@
-Node.JS/vars/common.yml
-Symfony/vars/common.yml
-Symfony/vars/php_conf.yml
+vars/*.yml
+setup.yml
