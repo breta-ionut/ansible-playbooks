@@ -7,7 +7,7 @@
 # some exceptions: a predefined set of files will remain on the
 # ownership of www-data.
 
-sudo chown -R vagrant:vagrant .
+sudo chown -R {{ item.value.owner }}:{{ item.value.group }} .
 sudo chmod -R 0744 .
 sudo find ./ -type d -print0 | sudo xargs -0 chmod 0745 
 
