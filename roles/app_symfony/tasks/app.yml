@@ -37,7 +37,7 @@
 
 - name: Install the permission fixer script in the applications
   template:
-    src: "permissions.sh.sf{{ item.value.symfony_version|int }}.tpl"
+    src: "app/permissions.sh.sf{{ item.value.symfony_version|int }}.tpl"
     dest: "{{ item.value.parent_path}}/{{ item.value.root_dir }}/permissions.sh"
     owner: "{{ item.value.owner }}"
     group: "{{ item.value.group }}"
