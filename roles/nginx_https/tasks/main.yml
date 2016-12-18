@@ -19,7 +19,7 @@
   become: yes
   blockinfile:
     dest: /etc/nginx/nginx.conf
-    insertbefore: "^\}$"
+    insertbefore: "^}$"
     content: |
       ssl_session_cache shared:SSL:5m;
       ssl_session_timeout 1h;
