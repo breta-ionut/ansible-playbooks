@@ -1,8 +1,8 @@
 ---
-- name: Create directories for the Symfony apps
+- name: Ensure the existence of the apps container directories
   become: yes
   file:
-    path: "{{ item.value.parent_path}}/{{ item.value.root_dir }}"
+    path: "{{ item.value.parent_path}}"
     state: directory
     owner: "{{ item.value.owner }}"
     group: "{{ item.value.group }}"
