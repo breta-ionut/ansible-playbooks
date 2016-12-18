@@ -11,7 +11,10 @@
   with_dict: "{{ apps }}"
 
 - name: Install Symfony apps
-  command: chdir="{{ item.value.parent_path }}" symfony new {{ item.value.root_dir }} {{ item.value.symfony_version }}
+  command: symfony new {{ item.value.root_dir }} {{ item.value.symfony_version }}
+  args:
+    chdir: "{{ item.value.parent_path }}"
+    creates: "{{ item.value.root_dir }}"
   with_dict: "{{ apps }}"
 
 - name: Configure the Symfony apps databases
