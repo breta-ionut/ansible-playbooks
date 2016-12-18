@@ -1,10 +1,10 @@
 ---
 - name: PHP FPM - set socket owner
-  lineinfile: "dest={{ php_conf.conf_path }}/fpm/pool.d/www.conf state=present regexp='^;?listen.owner' line='listen.owner = nginx'"
+  lineinfile: "dest={{ php_conf.conf_path }}/fpm/pool.d/www.conf state=present regexp='^;?listen.owner' line='listen.owner = {{ php_conf.fpm_listen_owner }}'"
   notify: restart php-fpm
 
 - name: PHP FPM - set socket group
-  lineinfile: "dest={{ php_conf.conf_path }}/fpm/pool.d/www.conf state=present regexp='^;?listen.group' line='listen.group = nginx'"
+  lineinfile: "dest={{ php_conf.conf_path }}/fpm/pool.d/www.conf state=present regexp='^;?listen.group' line='listen.group = {{ php_conf.fpm_listen_group }}'"
   notify: restart php-fpm
 
 - name: PHP FPM - set socket mode

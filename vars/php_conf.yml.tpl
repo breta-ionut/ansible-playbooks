@@ -4,6 +4,8 @@ php_conf_dict:
         php_package: php5
         php_fpm_package: php5-fpm 
         php_fpm_service: php5-fpm
+        php_fpm_listen_owner: nginx
+    	php_fpm_listen_group: nginx
         extensions: [php5-cli, php5-mysql, php5-gd, php5-intl, php5-curl, php5-memcached, php5-xdebug, php5-mcrypt]
         pecl_extensions: []
         tools: [php-pear, php5-dev, libcurl3-openssl-dev]
@@ -15,6 +17,8 @@ php_conf_dict:
         php_package: php7.0
         php_fpm_package: php7.0-fpm 
         php_fpm_service: php7.0-fpm
+        php_fpm_listen_owner: nginx
+    	php_fpm_listen_group: nginx
         extensions: [php7.0-cli, php7.0-mysql, php-xml, php7.0-gd, php7.0-intl, php-curl, php-memcached, php-xdebug, php7.0-mcrypt]
         pecl_extensions: []
         tools: [php-pear, php7.0-dev, libcurl3-openssl-dev]
@@ -26,6 +30,8 @@ php_conf_dict:
         php_package: php7.1
         php_fpm_package: php7.1-fpm 
         php_fpm_service: php7.1-fpm
+        php_fpm_listen_owner: nginx
+    	php_fpm_listen_group: nginx
         extensions: [php7.1-cli, php7.1-mysql, php-xml, php7.1-gd, php7.1-intl, php-curl, php-memcached, php-xdebug, php7.1-mcrypt]
         pecl_extensions: []
         tools: [php-pear, php7.1-dev, libcurl3-openssl-dev]
