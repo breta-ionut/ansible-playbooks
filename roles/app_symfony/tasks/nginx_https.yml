@@ -12,13 +12,13 @@
       -keyout "/etc/nginx/ssl/{{ item.value.name }}.key"
       -out "/etc/nginx/ssl/{{ item.value.name }}.crt"
   args:
-    creates: /etc/nginx/ssl/{{ item.value.name }}.pem
+    creates: /etc/nginx/ssl/{{ item.value.name }}.crt
   when: "{{ item.value.https | default(false) | bool }}"
   with_dict: "{{ apps }}"
 
 - name: Change permissions on SSL certificates
   become: yes
-  file: path=/etc/nginx/ssl/{{ item.value.name }}.pem owner=root group=root mode=0600
+  file: path=/etc/nginx/ssl/{{ item.value.name }}.crt owner=root group=root mode=0600
   when: "{{ item.value.https | default(false) | bool }}"
   with_dict: "{{ apps }}"
 

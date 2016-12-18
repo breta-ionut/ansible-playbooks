@@ -5,7 +5,12 @@
 
 - name: Avoid old cipher suites
   become: yes
-  lineinfile: dest=/etc/nginx/nginx.conf insertafter="ssl_prefer_server_ciphers on;" line="ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;"
+  blockinfile:
+    dest: /etc/nginx/nginx.conf
+    insertbefore: "^}$"
+    content: |
+          ssl_prefer_server_ciphers on;
+          ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
 
 - name: Generate strong DHE key
   become: yes
@@ -21,5 +26,6 @@
     dest: /etc/nginx/nginx.conf
     insertbefore: "^}$"
     content: |
-      ssl_session_cache shared:SSL:5m;
-      ssl_session_timeout 1h;
+          ssl_session_cache shared:SSL:5m;
+          ssl_session_timeout 1h;
+  notify: "restart nginx"
