@@ -1,16 +1,7 @@
 ---
 - name: Generate self signed SSL certificates for the https apps
   become: yes
-  command: >
-    openssl req
-      -new
-      -newkey rsa:2048
-      -days 365
-      -nodes
-      -x509
-      -subj "/C=RO/ST=B/L=B/O=NA/CN={{ item.value.server_name }}"
-      -keyout /etc/nginx/ssl/{{ item.value.name }}.key
-      -out /etc/nginx/ssl/{{ item.value.name }}.pem
+  command: openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=RO/ST=B/L=B/O=NA/CN={{ item.value.server_name }}" -keyout "/etc/nginx/ssl/{{ item.value.name }}.key" -out "/etc/nginx/ssl/{{ item.value.name }}.pem"
   args:
     creates: /etc/nginx/ssl/{{ item.value.name }}.pem
   when: "{{ item.value.https | default(false) | bool }}"
