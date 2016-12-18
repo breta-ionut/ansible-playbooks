@@ -4,7 +4,7 @@
 
 - name: Add the Samba user
   become: yes
-  shell: echo -e "{{ samba.password }}\n{{ samba.password }}" | smbpasswd -s -a {{ samba.user }}
+  shell: (echo '{{ samba.password }}'; echo '{{ samba.password }}') | smbpasswd -s -a {{ samba.user }}
 
 - name: Configure Samba
   become: yes
