@@ -1,7 +1,13 @@
 ---
 - name: Create directories for the Symfony apps
   become: yes
-  file: path="{{ item.value.parent_path}}/{{ item.value.root_dir }}" state=directory owner=vagrant group=vagrant mode=0745 recurse=yes
+  file:
+    path: "{{ item.value.parent_path}}/{{ item.value.root_dir }}"
+    state: directory
+    owner: "{{ item.value.owner }}"
+    group: "{{ item.value.group }}"
+    mode: 0745
+    recurse: yes
   with_dict: "{{ apps }}"
 
 - name: Install Symfony apps
@@ -30,7 +36,12 @@
   with_dict: "{{ apps }}"
 
 - name: Install the permission fixer script in the applications
-  template: src="permissions.sh.sf{{ item.value.symfony_version|int }}.tpl" dest="{{ item.value.parent_path}}/{{ item.value.root_dir }}/permissions.sh" owner=vagrant group=vagrant mode=0744
+  template:
+    src: "permissions.sh.sf{{ item.value.symfony_version|int }}.tpl"
+    dest: "{{ item.value.parent_path}}/{{ item.value.root_dir }}/permissions.sh"
+    owner: "{{ item.value.owner }}"
+    group: "{{ item.value.group }}"
+    mode: 0744
   with_dict: "{{ apps }}"
 
 - name: Run the permission fixer scripts
