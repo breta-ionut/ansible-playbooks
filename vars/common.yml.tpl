@@ -7,5 +7,8 @@ mysql:
     root_password: ''
 
 samba:
+	user: vagrant
     password: Samba@12345
     share_root: /var/www/
+    share_user: vagrant
+    share_group: vagrant

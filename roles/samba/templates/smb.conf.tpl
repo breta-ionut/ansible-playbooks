@@ -261,12 +261,12 @@ guest ok = no
 [www]
 path = {{ samba.share_root }}
 available = yes
-valid users = vagrant
+valid users = {{ samba.user }}
 read only = no
 browseable = yes
 public = yes
 writable = yes
-force user = vagrant
-force group = vagrant
+force user = {{ samba.share_user }}
+force group = {{ samba.share_group }}
 create mode = 0744
 directory mode = 0745

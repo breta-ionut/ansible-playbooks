@@ -4,7 +4,7 @@
 
 - name: Add the Samba user
   become: yes
-  command: echo -e "{{ samba.password }}\n{{ samba.password }}" | smbpasswd -s -a vagrant
+  command: echo -e "{{ samba.password }}\n{{ samba.password }}" | smbpasswd -s -a {{ samba.user }}
 
 - name: Configure Samba
   become: yes
