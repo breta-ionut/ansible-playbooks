@@ -12,6 +12,7 @@
     - mysql
     - php
     - nginx
+    - nginx_https
     - samba
     - composer
     - symfony

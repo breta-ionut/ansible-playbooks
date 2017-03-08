@@ -10,5 +10,6 @@
     - mysql
     - node
     - nginx
+    - nginx_https
     - samba
     - app_nodejs
