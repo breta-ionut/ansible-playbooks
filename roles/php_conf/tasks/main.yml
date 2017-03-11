@@ -1,4 +1,4 @@
 ---
 - name: Register PHP configuration
   set_fact:
-      php_conf: "{{ php_conf_dict[php_version] }}"
+    php_conf: "{{ php_conf_dict[php_version] }}"
