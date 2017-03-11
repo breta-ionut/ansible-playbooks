@@ -1,6 +1,6 @@
 ---
 - name: Deploy the roles on the guest
-  hosts: local
+  hosts: localhost
 
   become: yes
   become_user: root

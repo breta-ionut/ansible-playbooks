@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/xenial64"
+
+  config.vm.network "private_network", ip: "192.168.33.10"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+  end
+
+  config.ssh.username = "ubuntu"
+  config.ssh.password = "ubuntu"
+
+  # Deploy the base Ansible roles on the machine.
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = deploy_roles.yml
+    ansible.limit = "localhost"
+    ansible.inventory_path = "inventories/hosts"
+  end
+
+  # Provision the machine.
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = setup_symfony.yml
+    ansible.limit = "localhost"
+    ansible.inventory_path = "inventories/hosts"
+    ansible.raw_arguments = [
+      "--extra-vars=\"php_version=7.1\""
+    ]
+  end
+end

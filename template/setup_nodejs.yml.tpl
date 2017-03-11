@@ -1,6 +1,6 @@
 ---
 - name: Set up the server with an empty Node.JS project
-  hosts: local
+  hosts: localhost
 
   become: yes
   become_user: root
