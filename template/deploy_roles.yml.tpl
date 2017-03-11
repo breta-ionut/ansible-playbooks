@@ -1,7 +1,10 @@
 ---
-  name: Deploy the roles on the guest
-  hosts: all
+- name: Deploy the roles on the guest
+  hosts: local
+
   become: yes
+  become_user: root
+  become_method: sudo
 
   pre_tasks:
     - name: Ensure .ssh directory exists and has correct permissions
