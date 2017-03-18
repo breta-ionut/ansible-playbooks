@@ -6,12 +6,12 @@
     - "{{ api.doc_root }}"
     - "{{ front.doc_root }}"
 
-- name: Install Gulp, Bower and Forever
-  npm: name={{ item }} global=yes
-  with_items:
-    - gulp-cli
-    - bower
-    - forever
+- name: Create the "node" user, under which the API application will run
+  become: yes
+  user: name=node
+
+- name: Ensure Forever is installed
+  npm: name=forever global=yes
 
 - name: Configure the API application to start at the system boot
   become: yes

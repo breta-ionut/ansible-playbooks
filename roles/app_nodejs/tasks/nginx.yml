@@ -1,4 +1,3 @@
-
 ---
 - name: Configure the virtual hosts for the front & API applications
   become: yes

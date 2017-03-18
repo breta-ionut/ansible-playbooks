@@ -15,6 +15,6 @@
   become: yes
   apt: pkg=nodejs
 
-- name: Create the "node" user
-  become: yes
-  user: name=node
+- name: Install Node.JS global packages
+  npm: name={{ item }} global=yes
+  with_items: {{ node.global_packages }}
