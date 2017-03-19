@@ -13,4 +13,4 @@
     src: {{ php_conf.conf_path }}/mods-available/{{ item }}.ini
     dest: {{ php_conf.conf_path }}/cli/conf.d/{{ item }}.ini
     state: link
-  with_items: "{{ php_conf.pecl_extensions }}"
+  with_items: "{{ php.pecl_extensions }}"

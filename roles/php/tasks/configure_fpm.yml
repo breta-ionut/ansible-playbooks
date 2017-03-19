@@ -4,7 +4,7 @@
     dest: {{ php_conf.conf_path }}/fpm/pool.d/www.conf
     state: present
     regexp: "^;?listen.owner"
-    line: "listen.owner = {{ php_conf.php_fpm_listen_owner }}"
+    line: "listen.owner = {{ php_fpm.listen_owner }}"
   notify: restart php-fpm
 
 - name: PHP FPM - set socket group
@@ -12,7 +12,7 @@
     dest: {{ php_conf.conf_path }}/fpm/pool.d/www.conf
     state: present
     regexp: "^;?listen.group"
-    line: "listen.group = {{ php_conf.php_fpm_listen_group }}"
+    line: "listen.group = {{ php_fpm.listen_group }}"
   notify: restart php-fpm
 
 - name: PHP FPM - set socket mode
@@ -39,5 +39,5 @@
     src: {{ php_conf.conf_path }}/mods-available/{{ item }}.ini
     dest: {{ php_conf.conf_path }}/fpm/conf.d/{{ item }}.ini
     state: link
-  with_items: "{{ php_conf.pecl_extensions }}"
+  with_items: "{{ php.pecl_extensions }}"
   notify: restart php-fpm

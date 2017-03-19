@@ -1,26 +1,30 @@
 ---
+- name: Register PHP configuration
+  set_fact:
+    php_conf: "{{ php_conf_dict[php.version] }}"
+
 - name: Install PHP
   become: yes
-  apt: pkg={{ php_conf.php_package }} state=latest
+  apt: pkg={{ php_conf.package }} state=latest
 
 - name: Install PHP FPM
   become: yes
-  apt: pkg={{ php_conf.php_fpm_package }} state=latest
+  apt: pkg={{ php_conf.fpm_package }} state=latest
 
 - name: Install PHP tools
   become: yes
   apt: pkg={{ item }} state=latest
-  with_items: "{{ php_conf.tools }}"
+  with_items: "{{ php.tools }}"
 
 - name: Install PHP extensions
   become: yes
   apt: pkg={{ item }} state=latest
-  with_items: "{{ php_conf.extensions }}"
+  with_items: "{{ php.extensions }}"
 
 - name: Install PHP extensions via PECL
   become: yes
   shell: "pecl install {{ item }}"
-  with_items: "{{ php_conf.pecl_extensions }}"
+  with_items: "{{ php.pecl_extensions }}"
 
 - name: Configure PHP
   include: configure.yml

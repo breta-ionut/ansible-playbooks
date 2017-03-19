@@ -1,0 +1,24 @@
+php_conf_dict:
+    "5.6":
+        repository: ppa:ondrej/php5-5.6
+        package: php5
+        fpm_package: php5-fpm
+        fpm_service: php5-fpm
+        conf_path: /etc/php5
+        fastcgi_path: unix:/var/run/php5-fpm.sock
+
+    "7.0":
+        repository: ppa:ondrej/php
+        package: php7.0
+        fpm_package: php7.0-fpm
+        fpm_service: php7.0-fpm
+        conf_path: /etc/php/7.0
+        fastcgi_path: unix:/var/run/php/php7.0-fpm.sock
+
+    "7.1":
+        repository: ppa:ondrej/php
+        package: php7.1
+        fpm_package: php7.1-fpm
+        fpm_service: php7.1-fpm
+        conf_path: /etc/php/7.1
+        fastcgi_path: unix:/var/run/php/php7.1-fpm.sock
