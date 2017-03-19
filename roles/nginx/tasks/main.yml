@@ -3,6 +3,15 @@
   become: yes
   apt: name=apache2 state=absent
 
+- name: Add the Nginx official repository
+  apt_repository:
+    repo: "deb http://nginx.org/packages/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} nginx"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Update packages cache
+  apt: update_cache=yes
+
 - name: Install Nginx
   become: yes
   apt: pkg=nginx state=latest force=yes

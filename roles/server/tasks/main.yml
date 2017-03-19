@@ -15,14 +15,3 @@
 - name: Set default system language pack
   shell: locale-gen {{ server.locale }}
   become: yes
-
-- name: Add the Nginx official repository
-  apt_repository: repo="deb http://nginx.org/packages/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} nginx" state=present
-  when: ansible_os_family == "Debian"
-  
-- name: Add the official MySQL 5.6 repository
-  apt_repository: repo="deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} mysql-5.6" state=present
-  when: ansible_os_family == "Debian"
-
-- name: Update packages cache
-  apt: update_cache=yes
