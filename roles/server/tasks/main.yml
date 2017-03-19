@@ -24,9 +24,5 @@
   apt_repository: repo="deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} mysql-5.6" state=present
   when: ansible_os_family == "Debian"
 
-- name: Add PHP repository for Ubuntu
-  apt_repository: repo="{{ php_conf.repository }}" state=present
-  when: ansible_distribution == "Ubuntu"
-
 - name: Update packages cache
   apt: update_cache=yes
