@@ -1,3 +1,6 @@
+node:
+  global_packages: [gulp-cli, sails]
+
 api:
   mysql_database: js-api
   mysql_user: js-api

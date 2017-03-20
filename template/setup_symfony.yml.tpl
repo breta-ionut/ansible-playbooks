@@ -7,12 +7,9 @@
   become_method: sudo
 
   vars_files:
-    - vars/php_conf.yml
-    - vars/common.yml
     - vars/symfony.yml
 
   roles:
-    - php_conf
     - server
     - mysql
     - php

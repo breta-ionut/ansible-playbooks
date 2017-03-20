@@ -7,7 +7,6 @@
   become_method: sudo
 
   vars_files:
-    - vars/common.yml
     - vars/nodejs.yml
 
   roles:
