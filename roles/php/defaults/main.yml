@@ -1,8 +1,3 @@
-php:
-    version: 7.1
-    extensions: []
-    pecl_extensions: []
-
 php_fpm:
     listen_owner: nginx
     listen_group: nginx
