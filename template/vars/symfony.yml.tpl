@@ -12,6 +12,7 @@ apps:
     owner: vagrant
     group: vagrant
     server_name: symfony3
+    https: true
     mysql_database: symfony3
     mysql_user: symfony3
     mysql_password: 12345
