@@ -1,7 +1,7 @@
 ---
 - name: PHP FPM - set socket owner
   lineinfile:
-    dest: {{ php_conf.conf_path }}/fpm/pool.d/www.conf
+    dest: "{{ php_conf.conf_path }}/fpm/pool.d/www.conf"
     state: present
     regexp: "^;?listen.owner"
     line: "listen.owner = {{ php_fpm.listen_owner }}"
@@ -9,7 +9,7 @@
 
 - name: PHP FPM - set socket group
   lineinfile:
-    dest: {{ php_conf.conf_path }}/fpm/pool.d/www.conf
+    dest: "{{ php_conf.conf_path }}/fpm/pool.d/www.conf"
     state: present
     regexp: "^;?listen.group"
     line: "listen.group = {{ php_fpm.listen_group }}"
@@ -17,7 +17,7 @@
 
 - name: PHP FPM - set socket mode
   lineinfile:
-    dest: {{ php_conf.conf_path }}/fpm/pool.d/www.conf
+    dest: "{{ php_conf.conf_path }}/fpm/pool.d/www.conf"
     state: present
     regexp: "^;?listen.mode"
     line: "listen.mode = 0660"
@@ -25,7 +25,7 @@
 
 - name: PHP FPM - set timezone
   lineinfile:
-    dest: {{ php_conf.conf_path }}/fpm/php.ini
+    dest: "{{ php_conf.conf_path }}/fpm/php.ini"
     regexp: "date.timezone ="
     line: "date.timezone = {{ server.timezone }}"
   notify: restart php-fpm
@@ -36,8 +36,8 @@
 
 - name: PHP FPM - enable PECL extensions
   file:
-    src: {{ php_conf.conf_path }}/mods-available/{{ item }}.ini
-    dest: {{ php_conf.conf_path }}/fpm/conf.d/{{ item }}.ini
+    src: "{{ php_conf.conf_path }}/mods-available/{{ item }}.ini"
+    dest: "{{ php_conf.conf_path }}/fpm/conf.d/{{ item }}.ini"
     state: link
   with_items: "{{ php.pecl_extensions }}"
   notify: restart php-fpm

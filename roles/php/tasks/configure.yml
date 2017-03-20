@@ -1,7 +1,7 @@
 ---
 - name: PHP - enable PECL extensions (create configuration files)
   lineinfile:
-    dest: {{ php_conf.conf_path }}/mods-available/{{ item }}.ini
+    dest: "{{ php_conf.conf_path }}/mods-available/{{ item }}.ini"
     line: "extension={{ item }}.so"
     create: yes
     mode: 644

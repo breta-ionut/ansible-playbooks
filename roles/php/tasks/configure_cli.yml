@@ -1,7 +1,7 @@
 ---
 - name: PHP CLI - set timezone
   lineinfile:
-    dest: {{ php_conf.conf_path }}/cli/php.ini
+    dest: "{{ php_conf.conf_path }}/cli/php.ini"
     regexp: "date.timezone ="
     line: "date.timezone = {{ server.timezone }}"
 
@@ -10,7 +10,7 @@
 
 - name: PHP CLI - enable PECL extensions
   file:
-    src: {{ php_conf.conf_path }}/mods-available/{{ item }}.ini
-    dest: {{ php_conf.conf_path }}/cli/conf.d/{{ item }}.ini
+    src: "{{ php_conf.conf_path }}/mods-available/{{ item }}.ini"
+    dest: "{{ php_conf.conf_path }}/cli/conf.d/{{ item }}.ini"
     state: link
   with_items: "{{ php.pecl_extensions }}"
