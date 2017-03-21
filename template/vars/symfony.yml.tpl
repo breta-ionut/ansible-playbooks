@@ -1,6 +1,6 @@
 php:
   version: "7.1"
-  extensions: [php7.1-cli, php7.1-mysql, php7.1-xml, php7.1-gd, php7.1-intl, php-curl, php-memcached, php-xdebug, php7.1-mcrypt]
+  extensions: [php7.1-cli, php7.1-mysql, php7.1-xml, php7.1-gd, php7.1-intl, php-curl, php7.1-zip, php-xdebug]
   pecl_extensions: []
 
 apps:
