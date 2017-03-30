@@ -4,7 +4,7 @@ server {
     listen 443 ssl http2 default_server;
     listen [::]:443 ssl http2 default_server;
 
-    root {{ item.value.doc_root_path }};
+    root {{ item.value.public_path }};
     
     error_log /var/log/nginx/{{ item.value.name }}_error.log;
     access_log /var/log/nginx/{{ item.value.name }}_access.log;

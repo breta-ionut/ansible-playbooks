@@ -15,9 +15,9 @@ php:
 symfony_apps:
   symfony3:
     name: symfony3
-    doc_root_path: /var/www/symfony3/web
+    public_path: /var/www/symfony3/web
     parent_path: /var/www
-    root_dir: symfony3
+    dir: symfony3
     owner: vagrant
     group: vagrant
     server_name: symfony3
