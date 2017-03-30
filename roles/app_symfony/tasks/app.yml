@@ -8,35 +8,35 @@
     group: "{{ item.value.group }}"
     mode: 0745
     recurse: yes
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Install Symfony apps
   command: symfony new {{ item.value.root_dir }} {{ item.value.symfony_version }}
   args:
     chdir: "{{ item.value.parent_path }}"
     creates: "{{ item.value.root_dir }}"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Configure the Symfony apps databases
   lineinfile: >
     dest="{{ item.value.parent_path }}/{{ item.value.root_dir }}/app/config/parameters.yml"
     regexp="database_name:"
     line="    database_name: '{{ item.value.mysql_database }}'"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Configure the Symfony apps database users
   lineinfile: >
     dest="{{ item.value.parent_path }}/{{ item.value.root_dir }}/app/config/parameters.yml"
     regexp="database_user:"
     line="    database_user: '{{ item.value.mysql_user }}'"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Configure the Symfony apps database user passwords
   lineinfile: >
     dest="{{ item.value.parent_path }}/{{ item.value.root_dir }}/app/config/parameters.yml"
     regexp="database_password:"
     line="    database_password: '{{ item.value.mysql_password }}'"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Install the permission fixer script in the applications
   template:
@@ -45,9 +45,9 @@
     owner: "{{ item.value.owner }}"
     group: "{{ item.value.group }}"
     mode: 0744
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Run the permission fixer scripts
   become: yes
   shell: ./permissions.sh chdir="{{ item.value.parent_path}}/{{ item.value.root_dir }}"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"

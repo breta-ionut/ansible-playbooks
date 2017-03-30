@@ -14,23 +14,23 @@
   args:
     creates: /etc/nginx/ssl/{{ item.value.name }}.crt
   when: "{{ item.value.https | default(false) | bool }}"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Change permissions on SSL certificates
   become: yes
   file: path=/etc/nginx/ssl/{{ item.value.name }}.crt owner=root group=root mode=0600
   when: "{{ item.value.https | default(false) | bool }}"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Change permissions on SSL keys
   become: yes
   file: path=/etc/nginx/ssl/{{ item.value.name }}.key owner=root group=root mode=0600
   when: "{{ item.value.https | default(false) | bool }}"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
 
 - name: Configure the virtual hosts for the https applications
   become: yes
   template: src=nginx_https/app.tpl dest=/etc/nginx/sites-available/{{ item.value.name }}
   when: "{{ item.value.https | default(false) | bool }}"
-  with_dict: "{{ apps }}"
+  with_dict: "{{ symfony_apps }}"
   notify: "restart nginx"
