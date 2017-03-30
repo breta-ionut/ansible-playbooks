@@ -1,0 +1,14 @@
+---
+- name: Configure the virtual hosts for the defined applications
+  become: yes
+  template: src=nginx/app.tpl dest=/etc/nginx/sites-available/{{ item.value.name }}
+  with_dict: "{{ php_apps }}"
+
+- name: Enabled the configured virtual hosts
+  become: yes
+  file:
+    src: /etc/nginx/sites-available/{{ item.value.name }}
+    dest: /etc/nginx/sites-enabled/{{ item.value.name }}
+    state: link
+  with_dict: "{{ php_apps }}"
+  notify: "restart nginx"

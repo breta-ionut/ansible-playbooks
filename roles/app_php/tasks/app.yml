@@ -1,0 +1,25 @@
+---
+- name: Ensure the existence of the apps directories
+  become: yes
+  file:
+    path: "{{ item.value.path}}"
+    state: directory
+    owner: "{{ item.value.owner }}"
+    group: "{{ item.value.group }}"
+    mode: 0745
+    recurse: yes
+  with_dict: "{{ php_apps }}"
+
+- name: Install the permission fixer script in the applications
+  template:
+    src: "app/permissions.sh.tpl"
+    dest: "{{ item.value.path}}/permissions.sh"
+    owner: "{{ item.value.owner }}"
+    group: "{{ item.value.group }}"
+    mode: 0744
+  with_dict: "{{ php_apps }}"
+
+- name: Run the permission fixer scripts
+  become: yes
+  shell: ./permissions.sh chdir="{{ item.value.path}}"
+  with_dict: "{{ php_apps }}"
