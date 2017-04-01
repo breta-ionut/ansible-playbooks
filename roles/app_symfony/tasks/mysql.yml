@@ -5,10 +5,10 @@
 
 - name: Create MySQL users for all applications
   mysql_user:
-    name: {{ item.value.mysql_user }}
-    password: {{ item.value.mysql_password }}
+    name: "{{ item.value.mysql_user }}"
+    password: "{{ item.value.mysql_password }}"
     priv: "{{ item.value.mysql_database }}.*:ALL"
     state: present
     login_user: root
-    login_password: {{ mysql.root_password }}
+    login_password: "{{ mysql.root_password }}"
   with_dict: "{{ symfony_apps }}"
