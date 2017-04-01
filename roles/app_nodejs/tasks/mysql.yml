@@ -3,4 +3,10 @@
   mysql_db: name={{ api.mysql_database }} state=present login_user=root login_password={{ mysql.root_password }}
 
 - name: Create MySQL user for the API application
-  mysql_user: name={{ api.mysql_user }} password={{ api.mysql_password }} priv={{ api.mysql_database }}.*:ALL state=present login_user=root login_password={{ mysql.root_password }}
+  mysql_user:
+    name: {{ api.mysql_user }}
+    password: {{ api.mysql_password }}
+    priv: "{{ api.mysql_database }}.*:ALL"
+    state: present
+    login_user: root
+    login_password: {{ mysql.root_password }}
