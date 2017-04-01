@@ -10,6 +10,11 @@
     recurse: yes
   with_dict: "{{ php_apps }}"
 
+- name: Ensure the existence of the index files in the apps
+  become: yes
+  template: src=app/index.php.tpl dest={{ item.value.path}}/{{ item.value.index }}.php
+  with_dict: "{{ php_apps }}"
+
 - name: Install the permission fixer script in the applications
   template:
     src: "app/permissions.sh.tpl"

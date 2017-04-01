@@ -1,8 +1,8 @@
 server {
     server_name {{ item.value.server_name }};
     
-    listen 443 ssl http2 default_server;
-    listen [::]:443 ssl http2 default_server;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     root {{ item.value.public_path }};
     
