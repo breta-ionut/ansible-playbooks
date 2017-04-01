@@ -1,13 +1,4 @@
 ---
-- name: Add the official MySQL 5.6 repository
-  apt_repository:
-    repo: "deb http://repo.mysql.com/apt/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} mysql-5.6"
-    state: present
-  when: ansible_os_family == "Debian"
-
-- name: Update packages cache
-  apt: update_cache=yes
-
 - name: Install MySQL
   become: yes
   apt: pkg={{ item }} state=latest force=yes
