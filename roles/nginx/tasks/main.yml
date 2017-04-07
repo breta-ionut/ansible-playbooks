@@ -9,9 +9,6 @@
     state: present
   when: ansible_os_family == "Debian"
 
-- name: Update packages cache
-  apt: update_cache=yes
-
 - name: Install Nginx
   become: yes
   apt: pkg=nginx state=latest force=yes
