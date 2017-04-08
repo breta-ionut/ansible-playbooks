@@ -17,5 +17,4 @@
     - nginx_https
     - samba
     - composer
-    - symfony
     - app_php
