@@ -1,0 +1,18 @@
+---
+
+- include: https.yml
+  when: app.value.https|default(false)
+
+- include: nginx.yml
+
+- include: mysql.yml
+  when: app.value.mysql_database is defined and app.value.mysql_user is defined and app.value.mysql_password is defined
+
+- name: Create the app root dir
+  file:
+    path: "{{ app.value.path}}"
+    state: directory
+    owner: "{{ app.value.owner }}"
+    group: "{{ app.value.group }}"
+    mode: 0745
+    recurse: yes

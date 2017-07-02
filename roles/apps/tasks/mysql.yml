@@ -1,0 +1,13 @@
+---
+
+- name: Create database for the app
+  mysql_db: name={{ app.value.mysql_database }} state=present login_user=root login_password={{ mysql.root_password }}
+
+- name: Create MySQL user for the app
+  mysql_user:
+    name: "{{ app.value.mysql_user }}"
+    password: "{{ app.value.mysql_password }}"
+    priv: "{{ app.value.mysql_database }}.*:ALL"
+    state: present
+    login_user: root
+    login_password: "{{ mysql.root_password }}"

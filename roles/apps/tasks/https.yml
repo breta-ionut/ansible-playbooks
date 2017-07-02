@@ -1,0 +1,21 @@
+---
+
+- name: Generate self signed SSL certificate for the app
+  command: |
+    openssl req
+      -new
+      -newkey rsa:2048
+      -days 365
+      -nodes
+      -x509
+      -subj "/C=RO/ST=B/L=B/O=NA/CN={{ app.value.server_name }}"
+      -keyout "/etc/nginx/ssl/{{ app.value.name }}.key"
+      -out "/etc/nginx/ssl/{{ app.value.name }}.crt"
+  args:
+    creates: /etc/nginx/ssl/{{ app.value.name }}.crt
+
+- name: Change permissions on SSL certificate & key
+  file: path=/etc/nginx/ssl/{{ item }} owner=root group=root mode=0600
+  with_items:
+    - "{{ app.value.name }}.crt"
+    - "{{ app.value.name }}.key"

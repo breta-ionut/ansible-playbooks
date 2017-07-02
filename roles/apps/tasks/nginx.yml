@@ -1,0 +1,11 @@
+---
+
+- name: Configure the virtual host for the defined app
+  template: src={{ app.value.nginx_template }} dest=/etc/nginx/sites-available/{{ app.value.name }}
+
+- name: Enabled the configured virtual host
+  file:
+    src: /etc/nginx/sites-available/{{ app.value.name }}
+    dest: /etc/nginx/sites-enabled/{{ app.value.name }}
+    state: link
+  notify: "restart nginx"
