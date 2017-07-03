@@ -10,7 +10,7 @@
 
 - name: Create the app root dir
   file:
-    path: "{{ app.value.path}}"
+    path: "{{ app.value.path }}"
     state: directory
     owner: "{{ app.value.owner }}"
     group: "{{ app.value.group }}"
