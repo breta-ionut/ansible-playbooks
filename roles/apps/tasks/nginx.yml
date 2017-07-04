@@ -1,7 +1,14 @@
 ---
 
 - name: Configure the virtual host for the defined app
-  template: src={{ app.value.nginx_template }} dest=/etc/nginx/sites-available/{{ app.value.name }}
+  template:
+    src: >
+      {{
+        app.value.nginx_template|default(
+          app.value.https|default(false) ? default_nginx_templates.https : default_nginx_templates.http
+        )
+      }}
+    dest: "/etc/nginx/sites-available/{{ app.value.name }}"
 
 - name: Enabled the configured virtual host
   file:
