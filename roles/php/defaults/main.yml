@@ -1,3 +1,5 @@
 php_fpm:
+  user: www-data
+  group: www-data
   listen_owner: nginx
   listen_group: nginx
