@@ -1,12 +1,12 @@
 server {
-    server_name {{ item.value.server_name }};
+    server_name {{ app.value.server_name }};
 
     listen 80;
 
-    root {{ item.value.public_path }};
+    root {{ app.value.public_path }};
     
-    error_log /var/log/nginx/{{ item.value.name }}_error.log;
-    access_log /var/log/nginx/{{ item.value.name }}_access.log;
+    error_log /var/log/nginx/{{ app.value.name }}_error.log;
+    access_log /var/log/nginx/{{ app.value.name }}_access.log;
 
     location / {
         try_files $uri /app_dev.php$is_args$args;

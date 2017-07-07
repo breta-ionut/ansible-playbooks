@@ -1,0 +1,25 @@
+---
+
+- name: Provide a default Nginx template for the PHP HTTP apps
+  set_fact:
+    php_apps: "{{ php_apps|combine({item.key: {nginx_template: role_path~'/templates/app_http.tpl'}}, true) }}"
+  with_dict: "{{ php_apps }}"
+  when: not item.value.https|default(false) and item.value.nginx_template is not defined
+
+- name: Provide a default Nginx template for the PHP HTTPS apps
+  set_fact:
+    php_apps: "{{ php_apps|combine({item.key: {nginx_template: role_path~'/templates/app_https.tpl'}}, true) }}"
+  with_dict: "{{ php_apps }}"
+  when: item.value.https|default(false) and item.value.nginx_template is not defined
+
+- name: Provide the basic config for the apps
+  include_role:
+    name: apps
+  vars:
+    apps: "{{ php_apps }}"
+
+- name: Install the PHP apps
+  include: app.yml
+  with_dict: "{{ php_apps }}"
+  loop_control:
+    loop_var: app

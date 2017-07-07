@@ -1,5 +1,0 @@
----
-- include: nginx.yml
-- include: nginx_https.yml
-- include: mysql.yml
-- include: app.yml
