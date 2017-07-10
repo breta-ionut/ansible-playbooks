@@ -1,12 +1,13 @@
 server {
-    server_name {{ api.server_name }};
+    server_name {{ app.value.server_name }};
+
     listen 80;
 
-    error_log /var/log/nginx/api_error.log;
-    access_log /var/log/nginx/api_access.log;
+    error_log /var/log/nginx/{{ app.value.name }}_error.log;
+    access_log /var/log/nginx/{{ app.value.name }}_access.log;
 
     location / {
-        proxy_pass http://127.0.0.1:{{ api.port }};
+        proxy_pass http://127.0.0.1:{{ app.value.port }};
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;

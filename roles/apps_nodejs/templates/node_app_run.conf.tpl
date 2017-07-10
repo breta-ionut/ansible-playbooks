@@ -1,4 +1,4 @@
-description "Configures the system to run a specified Node.JS application at startup under the node user."
+description "Configures the system to run the {{ app.value.name }} Node.JS application at startup under the node user."
 
 # Start up when the system hits any normal runlevel, and 
 # shuts down when the system goes to shutdown or reboot.
@@ -21,11 +21,11 @@ console output
 # Configure the app to run under the node user.
 setuid node
 
-# The user's home directory
+# The user's home directory.
 env HOME=/home/node
 
 # Now we run Forever, telling it to write its logs to /tmp.
 script
     cd $HOME
-    exec forever start -a -l /tmp/forever.log -o /tmp/forever.stdout.log -e /tmp/forever.stderr.log {{ api.doc_root}}/{{ api.index_file }}
+    exec forever start -a -l /tmp/forever.log -o /tmp/forever.stdout.log -e /tmp/forever.stderr.log {{ app.value.path }}/{{ app.value.index_file }}
 end script
