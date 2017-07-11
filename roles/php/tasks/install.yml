@@ -5,25 +5,20 @@
   when: ansible_distribution == "Ubuntu"
 
 - name: Install PHP
-  become: yes
   apt: pkg={{ php_conf.package }} state=latest
 
 - name: Install PHP FPM
-  become: yes
   apt: pkg={{ php_conf.fpm_package }} state=latest
 
 - name: Install PHP extensions
-  become: yes
   apt: pkg={{ item }} state=latest
   with_items: "{{ php.extensions }}"
 
 - name: Install PHP tools needed for adding PECL extensions
-  become: yes
   apt: pkg={{ item }} state=latest
   with_items: "{{ php_conf.pecl_packages }}"
 
 - name: Install PHP extensions via PECL
-  become: yes
   shell: "pecl install {{ item }}"
   with_items: "{{ php.pecl_extensions }}"
 
