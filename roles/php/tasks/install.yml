@@ -26,3 +26,7 @@
   become: yes
   shell: "pecl install {{ item }}"
   with_items: "{{ php.pecl_extensions }}"
+
+- name: Install Xdebug if demanded
+  package: name=php-xdebug state=latest
+  when: php.xdebug|default(false)
