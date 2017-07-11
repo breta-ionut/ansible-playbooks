@@ -18,8 +18,9 @@
   vars:
     apps: "{{ php_apps }}"
 
-- name: Install the PHP apps
+- name: Install the fresh PHP apps
   include: app.yml
   with_dict: "{{ php_apps }}"
+  when: app.value.new|default(false)
   loop_control:
     loop_var: app

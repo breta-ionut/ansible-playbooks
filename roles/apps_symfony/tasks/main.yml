@@ -18,8 +18,9 @@
   vars:
     apps: "{{ symfony_apps }}"
 
-- name: Install the Symfony apps
+- name: Install the fresh Symfony apps
   include: app.yml
   with_dict: "{{ symfony_apps }}"
+  when: app.value.new|default(false)
   loop_control:
     loop_var: app
