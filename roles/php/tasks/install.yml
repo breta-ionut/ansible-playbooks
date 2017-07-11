@@ -1,4 +1,5 @@
 ---
+
 - name: Add PHP repository for Ubuntu
   apt_repository: repo="{{ php_conf.repository }}" state=present
   when: ansible_distribution == "Ubuntu"
