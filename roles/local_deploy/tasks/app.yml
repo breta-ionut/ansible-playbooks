@@ -1,0 +1,64 @@
+---
+
+- name: Get the app's files through Git
+  git:
+    repo: "{{ app.value.repo }}"
+    dest: "{{ app.value.path }}"
+    version: "{{ app.value.version|default('master') }}"
+    accept_hostkey: true
+    ssh_opts: "-o StrictHostKeyChecking=no"
+    update: no
+
+- name: Install the app's files created from templates
+  template: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode|default("0644") }}
+  with_items: "{{ app.value.templates }}"
+  when: app.value.templates is defined
+
+- name: Do composer install
+  composer: no_dev=false working_dir={{ app.value.path }}
+  when: app.value.composer|default(false)
+
+- name: Do npm install
+  npm: path={{ app.value.path }}
+  when: app.value.npm|default(false)
+
+- block:
+    - name: Set permissions for the web user on the app's writable resources
+      acl:
+        path: "{{ app.value.path }}/{{ item[0] }}"
+        etype: user
+        entity: "{{ app.value.web_user|default('www-data') }}"
+        permissions: rwx
+        default: "{{ item[1] }}"
+        recursive: yes
+        state: present
+      with_nested:
+        - "{{ app.value.writable_resources }}"
+        - [yes, no]
+
+    - name: Set permissions masks on the app's writable resources
+      acl:
+        path: "{{ app.value.path }}/{{ item }}"
+        etype: mask
+        permissions: rwx
+        default: yes
+        recursive: yes
+        state: present
+      with_items: "{{ app.value.writable_resources }}"
+
+  when: app.value.writable_resources is defined
+
+- name: Execute on finalize hook
+  include: "{{ app.value.on_finalize_hook }}"
+  when: app.value.on_finalize_hook is defined
+
+- name: Change the app's owner
+  file:
+    path: "{{ app.value.path }}"
+    owner: "{{ app.value.owner|default('vagrant') }}"
+    group: "{{ app.value.group|default('vagrant') }}"
+    recurse: yes
+
+- name: Execute post finalize hook
+  include: "{{ app.value.post_finalize_hook }}"
+  when: app.value.post_finalize_hook is defined

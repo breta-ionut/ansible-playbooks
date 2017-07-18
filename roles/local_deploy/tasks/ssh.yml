@@ -1,0 +1,7 @@
+---
+
+- name: Ensure the SSH keys folder is created
+  file: path=~/.ssh state=directory mode=0700
+
+- name: Copy the SSH deploy key to the keys folder
+  copy: src={{ local_deploy.ssh_key }} dest=~/.ssh/id_rsa mode=0600

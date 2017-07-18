@@ -12,35 +12,38 @@
 - name: Ensure the existence of the app index file
   template: src=app/index.php.tpl dest={{ app.value.public_path}}/{{ app.value.index }}.php
 
-- name: Ensure the existence of the app writable resources
-  file:
-    path: "{{ app.value.path }}/{{ item }}"
-    state: directory
-    owner: "{{ app.value.owner }}"
-    group: "{{ app.value.group }}"
-    mode: 0745
-    recurse: yes
-  with_items: "{{ app.value.writable_resources }}"
+- block:
+    - name: Ensure the existence of the app writable resources
+      file:
+        path: "{{ app.value.path }}/{{ item }}"
+        state: directory
+        owner: "{{ app.value.owner }}"
+        group: "{{ app.value.group }}"
+        mode: 0745
+        recurse: yes
+      with_items: "{{ app.value.writable_resources }}"
 
-- name: Set permissions for the web user on writable resources
-  acl:
-    path: "{{ app.value.path }}/{{ item[0] }}"
-    etype: user
-    entity: "{{ php_fpm.user }}"
-    permissions: rwx
-    default: "{{ item[1] }}"
-    recursive: yes
-    state: present
-  with_nested:
-    - "{{ app.value.writable_resources }}"
-    - [yes, no]
+    - name: Set permissions for the web user on writable resources
+      acl:
+        path: "{{ app.value.path }}/{{ item[0] }}"
+        etype: user
+        entity: "{{ php_fpm.user }}"
+        permissions: rwx
+        default: "{{ item[1] }}"
+        recursive: yes
+        state: present
+      with_nested:
+        - "{{ app.value.writable_resources }}"
+        - [yes, no]
 
-- name: Set permissions masks on writable resources
-  acl:
-    path: "{{ app.value.path }}/{{ item }}"
-    etype: mask
-    permissions: rwx
-    default: yes
-    recursive: yes
-    state: present
-  with_items: "{{ app.value.writable_resources }}"
+    - name: Set permissions masks on writable resources
+      acl:
+        path: "{{ app.value.path }}/{{ item }}"
+        etype: mask
+        permissions: rwx
+        default: yes
+        recursive: yes
+        state: present
+      with_items: "{{ app.value.writable_resources }}"
+
+  when: app.value.writable_resources is defined
