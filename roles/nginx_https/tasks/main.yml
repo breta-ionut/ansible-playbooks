@@ -1,7 +1,7 @@
 ---
 - name: Create SSL certs directory
   become: yes
-  file: path=/etc/nginx/ssl state=directory owner=root group=root mode=600
+  file: path=/etc/nginx/ssl state=directory owner=root group=root mode=0600
 
 - name: Avoid old cipher suites
   become: yes
@@ -18,7 +18,7 @@
 
 - name: Change permissions for the DHE key
   become: yes
-  file: path=/etc/nginx/ssl/dhparam.pem owner=root group=root mode=600
+  file: path=/etc/nginx/ssl/dhparam.pem owner=root group=root mode=0600
 
 - name: Enable TLS session resumption
   become: yes

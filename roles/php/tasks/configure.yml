@@ -5,7 +5,7 @@
     dest: "{{ php_conf.conf_path }}/mods-available/{{ item }}.ini"
     line: "extension={{ item }}.so"
     create: yes
-    mode: 644
+    mode: 0644
   with_items: "{{ php.pecl_extensions }}"
 
 - name: PHP CLI - configure
