@@ -1,13 +1,14 @@
 ---
 
-- name: PHP CLI - set timezone
-  lineinfile:
-    dest: "{{ php_conf.conf_path }}/cli/php.ini"
-    regexp: "date.timezone ="
-    line: "date.timezone = {{ server.timezone }}"
-
-- name: PHP CLI - enable OPcache
-  lineinfile: dest={{ php_conf.conf_path }}/cli/php.ini regexp=";?opcache.enable_cli=\d" line="opcache.enable_cli=1"
+- name: PHP CLI - set timezone & enable OPcache
+  ini_file:
+    path: "{{ php_conf.conf_path }}/cli/php.ini"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items:
+    - {section: Date, option: date.timezone, value: "{{ server.timezone }}"}
+    - {section: opcache, option: opcache.enable_cli, value: 1}
 
 - name: PHP CLI - enable PECL extensions
   file:
