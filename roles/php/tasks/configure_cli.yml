@@ -17,6 +17,7 @@
     option: "{{ item.option }}"
     value: "{{ item.value }}"
   with_items: "{{ php.ini_values.common|default([]) + php.ini_values.cli|default([])"
+  when: php.ini_values is defined
 
 - name: PHP CLI - enable PECL extensions
   file:

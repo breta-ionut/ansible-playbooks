@@ -30,6 +30,7 @@
     option: "{{ item.option }}"
     value: "{{ item.value }}"
   with_items: "{{ php.ini_values.common|default([]) + php.ini_values.fpm|default([])"
+  when: php.ini_values is defined
   notify: restart php-fpm
 
 - name: PHP FPM - enable PECL extensions
