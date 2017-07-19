@@ -23,6 +23,15 @@
     - {section: opcache, option: opcache.enable, value: 1}
   notify: restart php-fpm
 
+- name: PHP FPM - set php.ini directives
+  ini_file:
+    path: "{{ php_conf.conf_path }}/fpm/php.ini"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items: "{{ php.ini_values.common|default([]) + php.ini_values.fpm|default([])"
+  notify: restart php-fpm
+
 - name: PHP FPM - enable PECL extensions
   file:
     src: "{{ php_conf.conf_path }}/mods-available/{{ item }}.ini"

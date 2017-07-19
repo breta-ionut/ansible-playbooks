@@ -10,6 +10,9 @@
 - name: Install PHP FPM
   apt: pkg={{ php_conf.fpm_package }} state=latest
 
+- name: Install PHP CLI
+  apt: pkg={{ php_conf.cli_package }} state=latest
+
 - name: Install PHP extensions
   apt: pkg={{ item }} state=latest
   with_items: "{{ php.extensions }}"
