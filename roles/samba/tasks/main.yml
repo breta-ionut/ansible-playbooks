@@ -1,13 +1,12 @@
 ---
+
 - name: Install Samba
   apt: pkg=samba state=installed
 
 - name: Add the Samba user
-  become: yes
   shell: (echo '{{ samba.password }}'; echo '{{ samba.password }}') | smbpasswd -s -a {{ samba.user }}
 
 - name: Configure Samba
-  become: yes
   template: src=smb.conf.tpl dest=/etc/samba/smb.conf
 
 - name: Ensure Samba is started

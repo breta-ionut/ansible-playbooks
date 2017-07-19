@@ -1,17 +1,14 @@
 ---
+
 - name: Install base system packages
-  become: yes
   apt: pkg={{ item }} state=latest
   with_items: "{{ server.packages }}"
 
 - name: Set the timezone
-  become: yes
   file: src=timezone.tpl dest=/etc/timezone
 
 - name: Set the localtime
-  become: yes
   file: src=/usr/share/zoneinfo/{{ server.timezone }} dest=/etc/localtime state=link force=yes backup=yes
 
 - name: Set default system language pack
   shell: locale-gen {{ server.locale }}
-  become: yes

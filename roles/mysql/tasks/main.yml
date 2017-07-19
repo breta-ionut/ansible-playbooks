@@ -1,6 +1,6 @@
 ---
+
 - name: Install MySQL
-  become: yes
   apt: pkg={{ item }} state=latest force=yes
   with_items:
     - mysql-server
