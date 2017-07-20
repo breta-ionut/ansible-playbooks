@@ -1,7 +1,7 @@
 ---
 
 - name: Install base system packages
-  apt: pkg={{ item }} state=latest
+  package: name={{ item }} state=latest
   with_items: "{{ server.packages }}"
 
 - name: Set the timezone

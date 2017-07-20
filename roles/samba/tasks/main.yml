@@ -1,7 +1,7 @@
 ---
 
 - name: Install Samba
-  apt: pkg=samba state=installed
+  package: name=samba state=latest
 
 - name: Add the Samba user
   shell: (echo '{{ samba.password }}'; echo '{{ samba.password }}') | smbpasswd -s -a {{ samba.user }}

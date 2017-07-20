@@ -1,17 +1,19 @@
 ---
 
-- name: Fetch Node.JS configuration script
-  get_url: url=https://deb.nodesource.com/setup_6.x dest=/tmp/install-nodejs mode=0744 force=yes
+- block:
+    - name: Fetch Node.JS configuration script
+      get_url: url=https://deb.nodesource.com/setup_6.x dest=/tmp/install-nodejs mode=0744 force=yes
 
-- name: Run Node.JS configuration script
-  shell: /tmp/install-nodejs
+    - name: Run Node.JS configuration script
+      shell: /tmp/install-nodejs
 
-- name: Remove Node.JS configuration script
-  file: path=/tmp/install-nodejs state=absent
+    - name: Remove Node.JS configuration script
+      file: path=/tmp/install-nodejs state=absent
+  when: ansible_os_family == "Debian"
 
 - name: Install Node.JS
-  apt: pkg=nodejs
+  package: name=nodejs state=latest
 
 - name: Install Node.JS global packages
   npm: name={{ item }} global=yes
-  with_items: {{ node.global_packages }}
+  with_items: "{{ node.global_packages }}"

@@ -1,24 +1,24 @@
 ---
 
 - name: Add PHP repository for Ubuntu
-  apt_repository: repo="{{ php_conf.repository }}" state=present
-  when: ansible_distribution == "Ubuntu"
+  apt_repository: repo={{ php_conf.repository }} state=present
+  when: ansible_os_family == "Debian"
 
 - name: Install PHP
-  apt: pkg={{ php_conf.package }} state=latest
+  package: name={{ php_conf.package }} state=latest
 
 - name: Install PHP FPM
-  apt: pkg={{ php_conf.fpm_package }} state=latest
+  package: name={{ php_conf.fpm_package }} state=latest
 
 - name: Install PHP CLI
-  apt: pkg={{ php_conf.cli_package }} state=latest
+  package: name={{ php_conf.cli_package }} state=latest
 
 - name: Install PHP extensions
-  apt: pkg={{ item }} state=latest
+  package: name={{ item }} state=latest
   with_items: "{{ php.extensions }}"
 
 - name: Install PHP tools needed for adding PECL extensions
-  apt: pkg={{ item }} state=latest
+  package: name={{ item }} state=latest
   with_items: "{{ php_conf.pecl_packages }}"
 
 - name: Install PHP extensions via PECL
