@@ -24,5 +24,12 @@
     - localhost
     - "{{ current_hostname.stdout|lower }}"
 
-- name: Update the MySQL configuration file
-  template: src=my.cnf.tpl dest=/etc/mysql/my.cnf
+- name: Update the MySQL config
+  ini_file:
+    path: /etc/mysql/my.cnf
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items: "{{ mysql.cnf_values }}"
+  when: mysql.cnf_values is defined
+  notify: restart mysql
