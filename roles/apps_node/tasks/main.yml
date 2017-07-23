@@ -2,21 +2,21 @@
 
 - name: Provide a default Nginx template for the Node HTTP apps
   set_fact:
-    node_apps: "{{ node_apps|combine({item.key: {nginx_template: role_path~'/templates/node_http.tpl'}}, true) }}"
-  with_dict: "{{ node_apps }}"
+    apps_node: "{{ apps_node|combine({item.key: {nginx_template: role_path~'/templates/node_http.tpl'}}, true) }}"
+  with_dict: "{{ apps_node }}"
   when: not item.value.https|default(false) and item.value.nginx_template is not defined
 
 - name: Provide a default Nginx template for the Node HTTPS apps
   set_fact:
-    node_apps: "{{ node_apps|combine({item.key: {nginx_template: role_path~'/templates/node_https.tpl'}}, true) }}"
-  with_dict: "{{ node_apps }}"
+    apps_node: "{{ apps_node|combine({item.key: {nginx_template: role_path~'/templates/node_https.tpl'}}, true) }}"
+  with_dict: "{{ apps_node }}"
   when: item.value.https|default(false) and item.value.nginx_template is not defined
 
 - name: Provide the basic config for the Node apps
   include_role:
     name: apps
   vars:
-    apps: "{{ node_apps }}"
+    apps: "{{ apps_node }}"
 
 - name: Create the "node" user, under which the Node apps will run
   user: name=node
@@ -26,22 +26,22 @@
 
 - name: Configure the Node apps to start at the system boot
   template: src=node_app_run.conf.tpl dest=/etc/init/{{ app.value.name }}-run.conf mode=0644
-  with_dict: "{{ node_apps }}"
+  with_dict: "{{ apps_node }}"
 
 - name: Provide a default Nginx template for the Front-end HTTP apps
   set_fact:
-    front_apps: "{{ front_apps|combine({item.key: {nginx_template: role_path~'/templates/front_http.tpl'}}, true) }}"
-  with_dict: "{{ front_apps }}"
+    apps_front: "{{ apps_front|combine({item.key: {nginx_template: role_path~'/templates/front_http.tpl'}}, true) }}"
+  with_dict: "{{ apps_front }}"
   when: not item.value.https|default(false) and item.value.nginx_template is not defined
 
 - name: Provide a default Nginx template for the Front-end HTTPS apps
   set_fact:
-    front_apps: "{{ front_apps|combine({item.key: {nginx_template: role_path~'/templates/front_https.tpl'}}, true) }}"
-  with_dict: "{{ front_apps }}"
+    apps_front: "{{ apps_front|combine({item.key: {nginx_template: role_path~'/templates/front_https.tpl'}}, true) }}"
+  with_dict: "{{ apps_front }}"
   when: item.value.https|default(false) and item.value.nginx_template is not defined
 
 - name: Provide the basic config for the Front-end apps
   include_role:
     name: apps
   vars:
-    apps: "{{ front_apps }}"
+    apps: "{{ apps_front }}"
