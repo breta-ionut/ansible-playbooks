@@ -1,5 +1,6 @@
 ---
-- name: Set up the server with an empty Node.JS project
+
+- name: Set up the server with a Node.JS project
   hosts: localhost
 
   become: yes
@@ -16,4 +17,4 @@
     - nginx
     - nginx_https
     - samba
-    - app_nodejs
+    - apps_nodejs
