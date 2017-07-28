@@ -1,0 +1,29 @@
+---
+
+- name: Deploy the roles on the guest
+  hosts: localhost
+
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  pre_tasks:
+    - name: Ensure .ssh directory exists and has correct permissions
+      file: path=~/.ssh state=directory mode=0700
+
+    - name: Register the machine's SSH key
+      copy: src=files/id_rsa dest=~/.ssh/id_rsa mode=0600
+
+  tasks:
+    - name: Install Git
+      apt: name=git
+
+    - name: Pull the roles locally
+      git:
+        repo: git@github.com:breta-ionut/ansible-recipes.git
+        dest: /etc/ansible/base-roles
+        version: master
+        accept_hostkey: yes
+
+    - name: Set the roles as defaults
+      file: path=/etc/ansible/roles src=/etc/ansible/base-roles/roles state=link force=yes

@@ -1,7 +1,6 @@
 php:
   version: "7.1"
   extensions:
-    - php7.1-cli
     - php7.1-mysql
     - php7.1-xml
     - php7.1-mbstring
@@ -9,20 +8,18 @@ php:
     - php7.1-gd
     - php7.1-zip
     - php-curl
-    - php-xdebug
   pecl_extensions: []
 
-symfony_apps:
+apps_symfony:
   symfony3:
     name: symfony3
-    public_path: /var/www/symfony3/web
-    parent_path: /var/www
-    dir: symfony3
+    path: /var/www/symfony3
     owner: vagrant
     group: vagrant
-    server_name: symfony3
     https: true
+    server_name: symfony3
     mysql_database: symfony3
     mysql_user: symfony3
     mysql_password: 12345
-    symfony_version: 3.2
+    new: true
+    symfony_version: 3.3

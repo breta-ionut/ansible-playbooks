@@ -1,6 +1,6 @@
 ---
 
-- name: Set up the server with an empty PHP application
+- name: Set up the server with a PHP application
   hosts: localhost
 
   become: yes

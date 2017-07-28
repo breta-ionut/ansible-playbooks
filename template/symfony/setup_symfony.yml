@@ -1,5 +1,6 @@
 ---
-- name: Set up the server with an empty Symfony project
+
+- name: Set up the server with a Symfony project
   hosts: localhost
 
   become: yes
@@ -18,4 +19,4 @@
     - samba
     - composer
     - symfony
-    - app_symfony
+    - apps_symfony
