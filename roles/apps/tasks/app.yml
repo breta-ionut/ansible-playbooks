@@ -12,7 +12,7 @@
   file:
     path: "{{ app.value.path }}"
     state: directory
-    owner: "{{ app.value.owner }}"
-    group: "{{ app.value.group }}"
+    owner: "{{ app.value.owner|default(ansible_ssh_user) }}"
+    group: "{{ app.value.group|default(ansible_ssh_user) }}"
     mode: 0745
     recurse: yes
