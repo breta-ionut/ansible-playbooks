@@ -1,4 +1,5 @@
 ---
+
 - name: Deploy the roles on the guest
   hosts: localhost
 
@@ -14,7 +15,7 @@
       copy: src=files/id_rsa dest=~/.ssh/id_rsa mode=0600
 
   tasks:
-    - name: Install GIT
+    - name: Install Git
       apt: name=git
 
     - name: Pull the roles locally

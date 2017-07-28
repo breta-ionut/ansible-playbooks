@@ -1,4 +1,5 @@
 ---
+
 - name: Set up the server with an empty PHP application
   hosts: localhost
 
@@ -17,4 +18,4 @@
     - nginx_https
     - samba
     - composer
-    - app_php
+    - apps_php
