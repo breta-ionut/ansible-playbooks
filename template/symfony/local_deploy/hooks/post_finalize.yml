@@ -1,0 +1,9 @@
+---
+# Post finalize deploy hook.
+
+- name: Update the database schema
+  command: "php bin/console doctrine:schema:update --force"
+  args: chdir={{ app.value.path }}
+
+- name: Clear the OPcache
+  service: name={{ php_conf.fpm_service }} state=restarted

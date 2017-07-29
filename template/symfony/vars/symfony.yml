@@ -23,3 +23,15 @@ apps_symfony:
     mysql_password: 12345
     new: true
     symfony_version: 3.3
+
+local_deploy:
+  apps:
+    symfony3:
+      path: /var/www/symfony3
+      repo:
+      templates:
+        - {src: "{{ playbook_dir }}/local_deploy/templates/parameters.yml.tpl", dest: app/config/parameters.yml}
+      composer: true
+      writable_resources: [var/cache, var/logs, var/sessions, web/bundles]
+      post_finalize_hook: "{{ playbook_dir }}/local_deploy/hooks/post_finalize.yml"
+      custom_data: {database_name: symfony3, database_user: symfony3, database_password: 12345}
