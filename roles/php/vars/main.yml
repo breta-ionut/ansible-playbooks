@@ -1,3 +1,5 @@
+---
+
 php_conf_dict:
   "5.6":
     repository: ppa:ondrej/php5-5.6

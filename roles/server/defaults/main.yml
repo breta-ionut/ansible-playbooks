@@ -1,3 +1,5 @@
+---
+
 server:
   packages: [nano, vim, curl, git, zip, unzip]
   timezone: Europe/Bucharest

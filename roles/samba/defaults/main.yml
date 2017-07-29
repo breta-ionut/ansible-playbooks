@@ -1,3 +1,5 @@
+---
+
 samba:
   user: vagrant
   password: 12345
