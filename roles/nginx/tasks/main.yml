@@ -10,7 +10,7 @@
   when: ansible_os_family == "Debian"
 
 - name: Install Nginx
-  package: name=nginx state=latest
+  package: name=nginx state=latest force=yes
 
 - name: Configure Nginx to include the virtual hosts files
   lineinfile:
