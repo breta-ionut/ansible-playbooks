@@ -1,7 +1,7 @@
 ---
 
 - name: Install the barebone Symfony app
-  command: symfony new symfony_tmp {{ app.value.symfony_version }} && cp -r symfony_tmp/. ./ && rm -rf /symfony_tmp
+  shell: "symfony new symfony_tmp {{ app.value.symfony_version }} && cp -r symfony_tmp/. ./ && rm -rf /symfony_tmp"
   args:
     chdir: "{{ app.value.path }}"
     creates: "{{ app.value.path }}/app"
