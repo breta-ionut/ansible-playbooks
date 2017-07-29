@@ -1,7 +1,7 @@
 ---
 
 - name: Install the barebone Symfony app
-  shell: "symfony new symfony_tmp {{ app.value.symfony_version }} && cp -r symfony_tmp/. ./ && rm -rf /symfony_tmp"
+  shell: "symfony new symfony_tmp {{ app.value.symfony_version }} && cp -r symfony_tmp/. ./ && rm -rf symfony_tmp"
   args:
     chdir: "{{ app.value.path }}"
     creates: "{{ app.value.path }}/app"
@@ -12,6 +12,13 @@
     - {regexp: "database_name:", line: "    database_name: {{ app.value.mysql_database }}"}
     - {regexp: "database_user:", line: "    database_user: {{ app.value.mysql_user }}"}
     - {regexp: "database_password:", line: "    database_password: {{ app.value.mysql_password }}"}
+
+- name: Set the application owner
+  file:
+    path: "{{ app.value.path }}"
+    recurse: yes
+    owner: "{{ app.value.owner|default('vagrant') }}"
+    group: "{{ app.value.group|default('vagrant') }}"
 
 - name: Set permissions for the web user on writable resources
   acl:
