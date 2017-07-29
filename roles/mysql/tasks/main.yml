@@ -17,6 +17,7 @@
     - 127.0.0.1
     - ::1
     - localhost
+  ignore_errors: true
 
 - name: Erase anonymous users
   mysql_user: name='' host={{ item }} state=absent login_user=root login_password={{ mysql.root_password }}
