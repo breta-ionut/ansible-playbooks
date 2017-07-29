@@ -23,3 +23,14 @@ apps_front:
     group: vagrant
     https: true
     server_name: js.front
+
+local_deploy:
+  apps:
+    api:
+      path: /var/www/js.api
+      repo:
+      npm: true
+    front:
+      path: /var/www/js.front
+      repo:
+      npm: true
