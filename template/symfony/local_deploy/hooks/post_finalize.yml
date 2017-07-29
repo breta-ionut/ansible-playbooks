@@ -6,4 +6,4 @@
   args: chdir={{ app.value.path }}
 
 - name: Clear the OPcache
-  service: name={{ php_conf.fpm_service }} state=restarted
+  service: name={{ php_conf.fpm_service }} state=reloaded
