@@ -2,13 +2,13 @@
 
 - name: Provide a default Nginx template for the PHP HTTP apps
   set_fact:
-    apps_php: "{{ apps_php|combine({item.key: {nginx_template: role_path~'/templates/app_http.tpl'}}, true) }}"
+    apps_php: "{{ apps_php|combine({item.key: {'nginx_template': role_path~'/templates/app_http.tpl'}}, true) }}"
   with_dict: "{{ apps_php }}"
   when: not item.value.https|default(false) and item.value.nginx_template is not defined
 
 - name: Provide a default Nginx template for the PHP HTTPS apps
   set_fact:
-    apps_php: "{{ apps_php|combine({item.key: {nginx_template: role_path~'/templates/app_https.tpl'}}, true) }}"
+    apps_php: "{{ apps_php|combine({item.key: {'nginx_template': role_path~'/templates/app_https.tpl'}}, true) }}"
   with_dict: "{{ apps_php }}"
   when: item.value.https|default(false) and item.value.nginx_template is not defined
 

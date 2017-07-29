@@ -2,13 +2,15 @@
 
 - name: Provide a default Nginx template for the Symfony HTTP apps
   set_fact:
-    apps_symfony: "{{ apps_symfony|combine({item.key: {nginx_template: role_path~'/templates/app_http.tpl'}}, true) }}"
+    apps_symfony: |
+      {{ apps_symfony|combine({item.key: {'nginx_template': role_path~'/templates/app_http.tpl'}}, true) }}
   with_dict: "{{ apps_symfony }}"
   when: not item.value.https|default(false) and item.value.nginx_template is not defined
 
 - name: Provide a default Nginx template for the Symfony HTTPS apps
   set_fact:
-    apps_symfony: "{{ apps_symfony|combine({item.key: {nginx_template: role_path~'/templates/app_https.tpl'}}, true) }}"
+    apps_symfony: |
+      {{ apps_symfony|combine({item.key: {'nginx_template': role_path~'/templates/app_https.tpl'}}, true) }}
   with_dict: "{{ apps_symfony }}"
   when: item.value.https|default(false) and item.value.nginx_template is not defined
 

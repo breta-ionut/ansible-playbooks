@@ -2,13 +2,13 @@
 
 - name: Provide a default Nginx template for the Node HTTP apps
   set_fact:
-    apps_node: "{{ apps_node|combine({item.key: {nginx_template: role_path~'/templates/node_http.tpl'}}, true) }}"
+    apps_node: "{{ apps_node|combine({item.key: {'nginx_template': role_path~'/templates/node_http.tpl'}}, true) }}"
   with_dict: "{{ apps_node }}"
   when: not item.value.https|default(false) and item.value.nginx_template is not defined
 
 - name: Provide a default Nginx template for the Node HTTPS apps
   set_fact:
-    apps_node: "{{ apps_node|combine({item.key: {nginx_template: role_path~'/templates/node_https.tpl'}}, true) }}"
+    apps_node: "{{ apps_node|combine({item.key: {'nginx_template': role_path~'/templates/node_https.tpl'}}, true) }}"
   with_dict: "{{ apps_node }}"
   when: item.value.https|default(false) and item.value.nginx_template is not defined
 
@@ -30,13 +30,13 @@
 
 - name: Provide a default Nginx template for the Front-end HTTP apps
   set_fact:
-    apps_front: "{{ apps_front|combine({item.key: {nginx_template: role_path~'/templates/front_http.tpl'}}, true) }}"
+    apps_front: "{{ apps_front|combine({item.key: {'nginx_template': role_path~'/templates/front_http.tpl'}}, true) }}"
   with_dict: "{{ apps_front }}"
   when: not item.value.https|default(false) and item.value.nginx_template is not defined
 
 - name: Provide a default Nginx template for the Front-end HTTPS apps
   set_fact:
-    apps_front: "{{ apps_front|combine({item.key: {nginx_template: role_path~'/templates/front_https.tpl'}}, true) }}"
+    apps_front: "{{ apps_front|combine({item.key: {'nginx_template': role_path~'/templates/front_https.tpl'}}, true) }}"
   with_dict: "{{ apps_front }}"
   when: item.value.https|default(false) and item.value.nginx_template is not defined
 
