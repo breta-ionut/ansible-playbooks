@@ -10,7 +10,7 @@
     update: no
 
 - name: Install the app's files created from templates
-  template: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode|default("0644") }}
+  template: src={{ item.src }} dest={{ app.value.path }}/{{ item.dest }} mode={{ item.mode|default("0644") }}
   with_items: "{{ app.value.templates }}"
   when: app.value.templates is defined
 

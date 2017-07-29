@@ -1,4 +1,4 @@
 ---
 
 - name: restart php-fpm
-  service: name={{ php_conf.fpm_service }} enabled=yes state=restarted
+  service: name={{ php_conf.fpm_service }} state=restarted

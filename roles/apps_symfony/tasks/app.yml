@@ -9,9 +9,9 @@
 - name: Configure the app database parameters
   lineinfile: dest={{ app.value.path }}/app/config/parameters.yml regexp={{ item.regexp }} line={{ item.line }}
   with_items:
-    - {regexp: "database_name:", line: "    database_name: '{{ app.value.mysql_database }}'"}
-    - {regexp: "database_user:", line: "    database_user: '{{ app.value.mysql_user }}'"}
-    - {regexp: "database_password:", line: "    database_password: '{{ app.value.mysql_password }}'"}
+    - {regexp: "database_name:", line: "    database_name: {{ app.value.mysql_database }}"}
+    - {regexp: "database_user:", line: "    database_user: {{ app.value.mysql_user }}"}
+    - {regexp: "database_password:", line: "    database_password: {{ app.value.mysql_password }}"}
 
 - name: Set permissions for the web user on writable resources
   acl:

@@ -2,7 +2,6 @@
 
 - name: Install the SSH deploy key
   include: ssh.yml
-  when: local_deploy.ssh_key is defined
 
 - name: Deploy the apps locally
   include: app.yml
