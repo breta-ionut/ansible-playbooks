@@ -9,7 +9,7 @@
   with_items:
     - {option: listen.owner, value: "{{ php_fpm.listen_owner }}"}
     - {option: listen.group, value: "{{ php_fpm.listen_group }}"}
-    - {option: listen.mode, value: 0660}
+    - {option: listen.mode, value: "0660"}
   notify: restart php-fpm
 
 - name: PHP FPM - set timezone & enable OPcache
