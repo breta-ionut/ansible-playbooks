@@ -3,7 +3,7 @@ server {
 
     listen 80;
 
-    root {{ app.value.public_path }};
+    root {{ app.value.path }}/web;
     
     error_log /var/log/nginx/{{ app.value.name }}_error.log;
     access_log /var/log/nginx/{{ app.value.name }}_access.log;
