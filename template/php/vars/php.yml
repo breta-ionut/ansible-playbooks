@@ -19,7 +19,7 @@ apps_php:
     path: /var/www/php
     owner: vagrant
     group: vagrant
-    public_path: /var/www/php
+    public_path: /var/www/php/public
     index: index
     writable_resources: [var/cache, var/logs]
     https: true
