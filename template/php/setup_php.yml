@@ -2,10 +2,7 @@
 
 - name: Set up the server with a PHP application
   hosts: localhost
-
   become: yes
-  become_user: root
-  become_method: sudo
 
   vars_files:
     - vars/php.yml
