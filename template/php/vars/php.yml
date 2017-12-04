@@ -1,14 +1,14 @@
 ---
 
 php:
-  version: "7.1"
+  version: "7.2"
   extensions:
-    - php7.1-mysql
-    - php7.1-xml
-    - php7.1-mbstring
-    - php7.1-intl
-    - php7.1-gd
-    - php7.1-zip
+    - php7.2-mysql
+    - php7.2-xml
+    - php7.2-mbstring
+    - php7.2-intl
+    - php7.2-gd
+    - php7.2-zip
     - php-curl
   pecl_extensions: []
   xdebug: true

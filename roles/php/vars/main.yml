@@ -30,3 +30,13 @@ php_conf_dict:
     pecl_packages: [php-pear, php7.1-dev, libcurl3-openssl-dev]
     conf_path: /etc/php/7.1
     fastcgi_path: unix:/var/run/php/php7.1-fpm.sock
+
+  "7.2":
+    repository: ppa:ondrej/php
+    package: php7.2
+    fpm_package: php7.2-fpm
+    fpm_service: php7.2-fpm
+    cli_package: php7.2-cli
+    pecl_packages: [php-pear, php7.2-dev, libcurl3-openssl-dev]
+    conf_path: /etc/php/7.2
+    fastcgi_path: unix:/var/run/php/php7.2-fpm.sock
