@@ -25,7 +25,11 @@ server {
     location ~ ^/(app_dev|config)\.php(/|$) {
         fastcgi_pass {{ php_conf.fastcgi_path }};
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
+
         include fastcgi_params;
+    {% if app.value.custom_fastcgi_params|default(false) %}
+        include {{ app.key }}_parameters;
+    {% endif %}
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 
@@ -33,7 +37,11 @@ server {
     location ~ ^/app\.php(/|$) {
         fastcgi_pass {{ php_conf.fastcgi_path }};
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
+
         include fastcgi_params;
+    {% if app.value.custom_fastcgi_params|default(false) %}
+        include {{ app.key }}_parameters;
+    {% endif %}
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 }

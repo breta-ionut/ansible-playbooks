@@ -10,4 +10,4 @@
     src: /etc/nginx/sites-available/{{ app.value.name }}
     dest: /etc/nginx/sites-enabled/{{ app.value.name }}
     state: link
-  notify: "restart nginx"
+  notify: restart nginx
