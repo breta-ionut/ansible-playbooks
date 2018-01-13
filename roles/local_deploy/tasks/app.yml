@@ -1,5 +1,9 @@
 ---
 
+- name: Execute on initialize hook
+  include: "{{ app.value.on_initialize_hook }}"
+  when: app.value.on_initialize_hook is defined
+
 - name: Get the app's files through Git
   git:
     repo: "{{ app.value.repo }}"
