@@ -19,17 +19,18 @@
   when: app.value.templates is defined
 
 - block:
-    - name: Set permissions for the web user on the app's writable resources
+    - name: Set permissions for the web user and app's owner on the app's writable resources
       acl:
         path: "{{ app.value.path }}/{{ item[0] }}"
         etype: user
-        entity: "{{ app.value.web_user|default('www-data') }}"
+        entity: "{{ item[1] }}"
         permissions: rwx
-        default: "{{ item[1] }}"
+        default: "{{ item[2] }}"
         recursive: yes
         state: present
       with_nested:
         - "{{ app.value.writable_resources }}"
+        - ["{{ app.value.web_user|default('www-data') }}", "{{ app.value.owner|default('vagrant') }}"]
         - [yes, no]
 
     - name: Set permissions masks on the app's writable resources
