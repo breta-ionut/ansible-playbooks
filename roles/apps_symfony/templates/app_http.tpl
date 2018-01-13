@@ -21,7 +21,7 @@ server {
 
         include fastcgi_params;
     {% if app.value.custom_fastcgi_params|default(false) %}
-        include {{ app.key }}_parameters;
+        include /etc/nginx/app_params/{{ app.key }}_params;
     {% endif %}
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
@@ -33,7 +33,7 @@ server {
 
         include fastcgi_params;
     {% if app.value.custom_fastcgi_params|default(false) %}
-        include {{ app.key }}_parameters;
+        include /etc/nginx/app_params/{{ app.key }}_params;
     {% endif %}
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
