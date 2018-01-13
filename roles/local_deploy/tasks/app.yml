@@ -10,17 +10,9 @@
     update: no
 
 - name: Install the app's files created from templates
-  template: src={{ item.src }} dest={{ app.value.path }}/{{ item.dest }} mode={{ item.mode|default("0644") }}
+  template: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode|default("0644") }}
   with_items: "{{ app.value.templates }}"
   when: app.value.templates is defined
-
-- name: Do composer install
-  composer: no_dev=false working_dir={{ app.value.path }}
-  when: app.value.composer|default(false)
-
-- name: Do npm install
-  npm: path={{ app.value.path }}
-  when: app.value.npm|default(false)
 
 - block:
     - name: Set permissions for the web user on the app's writable resources
@@ -47,6 +39,14 @@
       with_items: "{{ app.value.writable_resources }}"
 
   when: app.value.writable_resources is defined
+
+- name: Do composer install
+  composer: no_dev=false working_dir={{ app.value.path }}
+  when: app.value.composer|default(false)
+
+- name: Do npm install
+  npm: path={{ app.value.path }}
+  when: app.value.npm|default(false)
 
 - name: Execute on finalize hook
   include: "{{ app.value.on_finalize_hook }}"
