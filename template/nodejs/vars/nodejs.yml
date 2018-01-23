@@ -1,6 +1,7 @@
 ---
 
 node:
+  version: 9
   global_packages: [gulp-cli, sails]
 
 apps_node:

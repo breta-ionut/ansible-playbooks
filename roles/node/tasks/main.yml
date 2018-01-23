@@ -2,7 +2,7 @@
 
 - block:
     - name: Fetch Node.JS configuration script
-      get_url: url=https://deb.nodesource.com/setup_6.x dest=/tmp/install-nodejs mode=0744 force=yes
+      get_url: url={{ _node_debian_repos[node.version] }} dest=/tmp/install-nodejs mode=0744 force=yes
 
     - name: Run Node.JS configuration script
       shell: /tmp/install-nodejs
@@ -16,4 +16,4 @@
 
 - name: Install Node.JS global packages
   npm: name={{ item }} global=yes
-  with_items: "{{ node.global_packages }}"
+  with_items: "{{ node.global_packages|default([]) }}"

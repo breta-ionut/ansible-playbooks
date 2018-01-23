@@ -2,7 +2,7 @@
 
 samba:
   user: vagrant
-  password: 12345
+  password: vagrant
   share_root: /var/www/
   share_user: vagrant
   share_group: vagrant

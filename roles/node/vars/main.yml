@@ -1,0 +1,8 @@
+---
+
+_node_debian_repos:
+  4: https://deb.nodesource.com/setup_4.x
+  6: https://deb.nodesource.com/setup_6.x
+  7: https://deb.nodesource.com/setup_7.x
+  8: https://deb.nodesource.com/setup_8.x
+  9: https://deb.nodesource.com/setup_9.x
