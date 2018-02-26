@@ -47,8 +47,6 @@ server {
     {% endif %}
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
-
-        internal;
     }
 }
 
