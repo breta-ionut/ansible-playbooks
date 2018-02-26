@@ -1,17 +1,7 @@
 ---
 
-- name: Install the barebone Symfony app
-  shell: "symfony new symfony_tmp {{ app.value.symfony_version }} && cp -r symfony_tmp/. ./ && rm -rf symfony_tmp"
-  args:
-    chdir: "{{ app.value.path }}"
-    creates: "{{ app.value.path }}/app"
-
-- name: Configure the app database parameters
-  lineinfile: dest={{ app.value.path }}/app/config/parameters.yml regexp={{ item.regexp }} line={{ item.line }}
-  with_items:
-    - {regexp: "database_name:", line: "    database_name: {{ app.value.mysql_database }}"}
-    - {regexp: "database_user:", line: "    database_user: {{ app.value.mysql_user }}"}
-    - {regexp: "database_password:", line: "    database_password: {{ app.value.mysql_password }}"}
+- name: Install the Symfony app
+  include: "sf{{ app.value.symfony_version|int }}.yml"
 
 - name: Set the application owner
   file:
@@ -30,7 +20,7 @@
     recursive: yes
     state: present
   with_nested:
-    - [var/cache, var/logs, var/sessions, web/bundles]
+    - "{{ _apps_symfony_writable_resources[app.value.symfony_version|int] }}"
     - [yes, no]
 
 - name: Set permissions masks on writable resources
@@ -41,4 +31,4 @@
     default: yes
     recursive: yes
     state: present
-  with_items: [var/cache, var/logs, var/sessions, web/bundles]
+  with_items: "{{ _apps_symfony_writable_resources[app.value.symfony_version|int] }}"

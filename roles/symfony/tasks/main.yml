@@ -1,4 +1,0 @@
----
-
-- name: Get the Symfony installer
-  get_url: url=http://symfony.com/installer dest=/usr/local/bin/symfony mode=a+x

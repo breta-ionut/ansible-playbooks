@@ -1,0 +1,17 @@
+---
+
+- name: Get the Symfony installer
+  get_url: url=http://symfony.com/installer dest=/usr/local/bin/symfony mode=a+x
+
+- name: Install the barebone Symfony app
+  shell: "symfony new symfony_tmp {{ app.value.symfony_version }} && cp -r symfony_tmp/. ./ && rm -rf symfony_tmp"
+  args:
+    chdir: "{{ app.value.path }}"
+    creates: "{{ app.value.path }}/app"
+
+- name: Configure the app database parameters
+  lineinfile: dest={{ app.value.path }}/app/config/parameters.yml regexp={{ item.regexp }} line={{ item.line }}
+  with_items:
+    - {regexp: "database_name:", line: "    database_name: {{ app.value.mysql_database }}"}
+    - {regexp: "database_user:", line: "    database_user: {{ app.value.mysql_user }}"}
+    - {regexp: "database_password:", line: "    database_password: {{ app.value.mysql_password }}"}
