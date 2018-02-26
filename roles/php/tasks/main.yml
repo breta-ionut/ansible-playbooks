@@ -2,7 +2,7 @@
 
 - name: Register PHP configuration
   set_fact:
-    php_conf: "{{ php_conf_dict[php.version] }}"
+    php_conf: "{{ _php_conf_dict[php.version] }}"
 
 - name: Install PHP
   include: install.yml
