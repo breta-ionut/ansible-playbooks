@@ -1,0 +1,21 @@
+---
+
+- name: Set up the server with a Symfony 4 project
+  hosts: localhost
+  become: yes
+
+  vars_files:
+    - vars/symfony4.yml
+
+  roles:
+    - server
+    - mysql
+    - php
+    - node
+    - nginx
+    - nginx_https
+    - samba
+    - composer
+    - symfony
+    - apps_symfony
+    # - local_deploy

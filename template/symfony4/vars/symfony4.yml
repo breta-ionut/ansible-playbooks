@@ -1,0 +1,45 @@
+---
+
+php:
+  version: "7.2"
+  extensions:
+    - php7.2-mysql
+    - php7.2-xml
+    - php7.2-mbstring
+    - php7.2-intl
+    - php7.2-gd
+    - php7.2-zip
+    - php-curl
+  pecl_extensions: []
+  xdebug: true
+
+node:
+  version: 9
+  yarn: true
+
+apps_symfony:
+  symfony4:
+    name: symfony4
+    path: /var/www/symfony4
+    owner: vagrant
+    group: vagrant
+    https: true
+    server_name: symfony4
+    mysql_database: symfony4
+    mysql_user: symfony4
+    mysql_password: 12345
+    new: true
+    symfony_version: 4.0
+
+local_deploy:
+  apps:
+    symfony4:
+      path: /var/www/symfony4
+      repo:
+      templates:
+        - {src: "{{ playbook_dir }}/templates/cli_params.tpl", dest: /etc/profile.d/symfony4_params.sh}
+        - {src: "{{ playbook_dir }}/templates/fastcgi_params.tpl", dest: /etc/nginx/symfony4_params}
+      composer: true
+      writable_resources: [var/cache, var/log, var/sessions]
+      post_finalize_hook: "{{ playbook_dir }}/local_deploy/hooks/post_finalize.yml"
+      custom_data: {database_url: mysql://symfony4:12345@127.0.0.1:3306/symfony4}
