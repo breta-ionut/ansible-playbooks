@@ -4,7 +4,7 @@
   set_fact:
     apps_symfony: |
       {{ apps_symfony|combine(
-        {item.key: {'nginx_template': role_path~'/templates/sf'~app.value.symfony_version|int~'_http.tpl'}},
+        {item.key: {'nginx_template': role_path~'/templates/sf'~item.value.symfony_version|int~'_http.tpl'}},
         recursive=true
       ) }}
   with_dict: "{{ apps_symfony }}"
@@ -14,7 +14,7 @@
   set_fact:
     apps_symfony: |
       {{ apps_symfony|combine(
-        {item.key: {'nginx_template': role_path~'/templates/sf'~app.value.symfony_version|int~'_https.tpl'}},
+        {item.key: {'nginx_template': role_path~'/templates/sf'~item.value.symfony_version|int~'_https.tpl'}},
         recursive=true
       ) }}
   with_dict: "{{ apps_symfony }}"
