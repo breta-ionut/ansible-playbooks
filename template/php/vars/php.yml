@@ -36,4 +36,4 @@ local_deploy:
       repo:
       composer: true
       writable_resources: [var/cache, var/logs]
-      post_finalize_hook: "{{ playbook_dir }}/local_deploy/hooks/post_finalize.yml"
+      post_finalize_hook: "{{ playbook_dir }}/deploy_hooks/post_finalize.yml"
