@@ -41,5 +41,5 @@ local_deploy:
         - {src: "{{ playbook_dir }}/templates/fastcgi_params.tpl", dest: /etc/nginx/symfony4_params}
       composer: true
       writable_resources: [var/cache, var/log, var/sessions]
-      post_finalize_hook: "{{ playbook_dir }}/local_deploy/hooks/post_finalize.yml"
+      post_finalize_hook: "{{ playbook_dir }}/deploy_hooks/post_finalize.yml"
       custom_data: {database_url: mysql://symfony4:12345@127.0.0.1:3306/symfony4}
