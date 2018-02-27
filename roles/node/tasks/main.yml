@@ -17,3 +17,19 @@
 - name: Install Node.JS global packages
   npm: name={{ item }} global=yes
   with_items: "{{ node.global_packages|default([]) }}"
+
+- block:
+    - block:
+        - name: Add Yarn APT key
+          apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg
+
+        - name: Add Yarn APT source
+          lineinfile: path=/etc/apt/sources.list.d/yarn.list line="deb https://dl.yarnpkg.com/debian/ stable main"
+
+        - name: Update APT cache
+          apt: update_cache=yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install Yarn
+      package: name=yarn state=present
+  when: node.yarn|default(false)
