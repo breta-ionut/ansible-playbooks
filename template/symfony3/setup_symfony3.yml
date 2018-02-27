@@ -1,11 +1,11 @@
 ---
 
-- name: Set up the server with a Symfony project
+- name: Set up the server with a Symfony 3 project
   hosts: localhost
   become: yes
 
   vars_files:
-    - vars/symfony.yml
+    - vars/symfony3.yml
 
   roles:
     - server
