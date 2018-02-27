@@ -16,6 +16,5 @@
     - nginx_https
     - samba
     - composer
-    - symfony
     - apps_symfony
     # - local_deploy
