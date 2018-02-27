@@ -24,7 +24,10 @@
           apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg
 
         - name: Add Yarn APT source
-          lineinfile: path=/etc/apt/sources.list.d/yarn.list line="deb https://dl.yarnpkg.com/debian/ stable main"
+          lineinfile:
+            path: /etc/apt/sources.list.d/yarn.list
+            line: "deb https://dl.yarnpkg.com/debian/ stable main"
+            create: yes
 
         - name: Update APT cache
           apt: update_cache=yes
