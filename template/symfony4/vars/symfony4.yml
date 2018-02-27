@@ -23,6 +23,7 @@ apps_symfony:
     path: /var/www/symfony4
     owner: vagrant
     group: vagrant
+    custom_fastcgi_params: true
     https: true
     server_name: symfony4
     mysql_database: symfony4
