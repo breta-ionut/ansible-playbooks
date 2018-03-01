@@ -5,3 +5,12 @@
   args:
     chdir: "{{ app.value.path }}"
     creates: "{{ app.value.path }}/config"
+
+- name: Install the CLI & FastCGI params files
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - {src: sf4_cli_params.tpl, dest: "/etc/profile.d/{{ app.key }}_params.sh"}
+    - {src: sf4_fastcgi_params.tpl, dest: "/etc/nginx/{{ app.key }}_params"}
+
+- name: Restart Nginx
+  service: name=nginx state=restarted
