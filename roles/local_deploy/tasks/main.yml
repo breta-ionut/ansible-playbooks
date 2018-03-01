@@ -1,10 +1,10 @@
 ---
 
 - name: Install the SSH deploy key
-  include: ssh.yml
+  import_tasks: ssh.yml
 
 - name: Deploy the apps locally
-  include: app.yml
+  include_tasks: app.yml
   with_dict: "{{ local_deploy.apps }}"
   loop_control:
     loop_var: app

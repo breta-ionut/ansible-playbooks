@@ -1,7 +1,7 @@
 ---
 
 - name: Install the Symfony app
-  include: "sf{{ app.value.symfony_version|int }}.yml"
+  include_tasks: "sf{{ app.value.symfony_version|int }}.yml"
 
 - name: Set the application owner
   file:

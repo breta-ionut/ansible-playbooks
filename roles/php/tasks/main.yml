@@ -5,7 +5,7 @@
     php_conf: "{{ _php_conf_dict[php.version] }}"
 
 - name: Install PHP
-  include: install.yml
+  import_tasks: install.yml
 
 - name: Configure PHP
-  include: configure.yml
+  import_tasks: configure.yml

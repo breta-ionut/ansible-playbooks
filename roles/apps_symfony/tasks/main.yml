@@ -27,7 +27,7 @@
     apps: "{{ apps_symfony }}"
 
 - name: Install the fresh Symfony apps
-  include: app.yml
+  include_tasks: app.yml
   with_dict: "{{ apps_symfony }}"
   when: app.value.new|default(false)
   loop_control:

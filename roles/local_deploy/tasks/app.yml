@@ -1,7 +1,7 @@
 ---
 
 - name: Execute on initialize hook
-  include: "{{ app.value.on_initialize_hook }}"
+  include_tasks: "{{ app.value.on_initialize_hook }}"
   when: app.value.on_initialize_hook is defined
 
 - name: Get the app's files through Git
@@ -54,7 +54,7 @@
   when: app.value.npm|default(false)
 
 - name: Execute on finalize hook
-  include: "{{ app.value.on_finalize_hook }}"
+  include_tasks: "{{ app.value.on_finalize_hook }}"
   when: app.value.on_finalize_hook is defined
 
 - name: Change the app's owner
@@ -65,5 +65,5 @@
     recurse: yes
 
 - name: Execute post finalize hook
-  include: "{{ app.value.post_finalize_hook }}"
+  include_tasks: "{{ app.value.post_finalize_hook }}"
   when: app.value.post_finalize_hook is defined

@@ -21,7 +21,7 @@
     apps: "{{ apps_php }}"
 
 - name: Install the fresh PHP apps
-  include: app.yml
+  include_tasks: app.yml
   with_dict: "{{ apps_php }}"
   when: app.value.new|default(false)
   loop_control:

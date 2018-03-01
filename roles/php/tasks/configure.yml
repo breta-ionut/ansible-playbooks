@@ -9,10 +9,10 @@
   with_items: "{{ php.pecl_extensions }}"
 
 - name: PHP CLI - configure
-  include: configure_cli.yml
+  import_tasks: configure_cli.yml
 
 - name: PHP FPM - configure
-  include: configure_fpm.yml
+  import_tasks: configure_fpm.yml
 
 - name: PHP - configure Xdebug if present
   copy: src=xdebug.ini dest={{ php_conf.conf_path }}/mods-available/xdebug.ini mode=0644

@@ -1,7 +1,7 @@
 ---
 
 - name: Configure the web apps
-  include: app.yml
+  include_tasks: app.yml
   with_dict: "{{ apps }}"
   loop_control:
     loop_var: app
