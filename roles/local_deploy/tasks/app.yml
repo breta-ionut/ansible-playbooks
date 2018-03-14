@@ -55,6 +55,11 @@
   environment: {{ app.value.environment|default({}) }}
   when: app.value.npm|default(false)
 
+- name: Do yarn install
+  shell: "yarn install --non-interactive --silent" chdir={{ app.value.path }}
+  environment: {{ app.value.environment|default({}) }}
+  when: app.value.yarn|default(false)
+
 - name: Execute on finalize hook
   include_tasks: "{{ app.value.on_finalize_hook }}"
   when: app.value.on_finalize_hook is defined
