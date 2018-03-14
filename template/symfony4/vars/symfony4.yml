@@ -48,6 +48,7 @@ local_deploy:
       composer: true
       yarn: true
       writable_resources: [var]
+      on_initialize_hook: "{{ playbook_dir }}/deploy_hooks/on_initialize.yml"
       on_finalize_hook: "{{ playbook_dir }}/deploy_hooks/on_finalize.yml"
       post_finalize_hook: "{{ playbook_dir }}/deploy_hooks/post_finalize.yml"
       custom_data: {database_url: "mysql://symfony4:12345@127.0.0.1:3306/symfony4"}
