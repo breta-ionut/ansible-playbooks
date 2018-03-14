@@ -17,5 +17,9 @@
 - name: Install the FastCGI params file
   template: src=sf4_fastcgi_params.tpl dest=/etc/nginx/{{ app.key }}_params
 
+- name: Configure environment variables for CLI
+  lineinfile: path=/etc/environment regexp="^{{ item.key }}=" line="{{ item.key }}=\"{{ item.value }}\""
+  with_dict: "{{ _apps_symfony_env_vars }}"
+
 - name: Restart Nginx
   service: name=nginx state=restarted
