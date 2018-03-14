@@ -32,10 +32,17 @@ apps_symfony:
     new: true
     symfony_version: 4.0
 
+_local_deploy_apps_symfony4_env_vars:
+  APP_ENV: dev
+  APP_DEBUG: 1
+  DATABASE_URL: "mysql://symfony4:12345@127.0.0.1:3306/symfony4"
+
 local_deploy:
   apps:
     symfony4:
       path: /var/www/symfony4
+      environment: "{{ _local_deploy_apps_symfony4_env_vars }}"
+      persistent_environment: "{{ _local_deploy_apps_symfony4_env_vars }}"
       repo:
       templates: [{src: "{{ playbook_dir }}/templates/fastcgi_params.tpl", dest: /etc/nginx/symfony4_params}]
       composer: true
