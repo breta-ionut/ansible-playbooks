@@ -8,8 +8,8 @@
 
 - set_fact:
     _apps_symfony_env_vars:
-      APP_ENV: dev,
-      APP_DEBUG: 1,
+      APP_ENV: dev
+      APP_DEBUG: 1
       DATABASE_URL: "mysql://{{ app.value.mysql_user }}:{{ app.value.mysql_password }}@127.0.0.1:3306/{{ app.value.mysql_database }}"
 
 - name: Install the FastCGI params file
