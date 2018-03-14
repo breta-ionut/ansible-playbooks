@@ -37,10 +37,9 @@ local_deploy:
     symfony4:
       path: /var/www/symfony4
       repo:
-      templates:
-        - {src: "{{ playbook_dir }}/templates/cli_params.tpl", dest: /etc/profile.d/symfony4_params.sh}
-        - {src: "{{ playbook_dir }}/templates/fastcgi_params.tpl", dest: /etc/nginx/symfony4_params}
+      templates: [{src: "{{ playbook_dir }}/templates/fastcgi_params.tpl", dest: /etc/nginx/symfony4_params}]
       composer: true
+      yarn: true
       writable_resources: [var]
       on_finalize_hook: "{{ playbook_dir }}/deploy_hooks/on_finalize.yml"
       post_finalize_hook: "{{ playbook_dir }}/deploy_hooks/post_finalize.yml"
