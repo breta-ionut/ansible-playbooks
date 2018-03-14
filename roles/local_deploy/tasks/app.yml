@@ -47,10 +47,12 @@
 
 - name: Do composer install
   composer: no_dev=false working_dir={{ app.value.path }}
+  environment: {{ app.value.environment|default({}) }}
   when: app.value.composer|default(false)
 
 - name: Do npm install
   npm: path={{ app.value.path }}
+  environment: {{ app.value.environment|default({}) }}
   when: app.value.npm|default(false)
 
 - name: Execute on finalize hook
