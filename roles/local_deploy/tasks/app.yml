@@ -4,6 +4,10 @@
   include_tasks: "{{ app.value.on_initialize_hook }}"
   when: app.value.on_initialize_hook is defined
 
+- name: Set persistent environment variables
+  lineinfile: path=/etc/environment regexp="^{{ item.key }}=" line="{{ item.key }}=\"{{ item.value }}\""
+  with_dict: "{{ app.value.persistent_environment|default({}) }}"
+
 - name: Get the app's files through Git
   git:
     repo: "{{ app.value.repo }}"
