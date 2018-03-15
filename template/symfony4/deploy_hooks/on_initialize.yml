@@ -1,6 +1,0 @@
----
-# On initialize deploy hook.
-
-- name: Configure environment variables for CLI
-  lineinfile: path=/etc/environment regexp="^{{ item.key }}=" line="{{ item.key }}=\"{{ item.value }}\""
-  with_dict: "{{ app.value.persistent_environment }}"
