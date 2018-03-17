@@ -6,6 +6,9 @@
     chdir: "{{ app.value.path }}"
     creates: "{{ app.value.path }}/config"
 
+- name: Remove .git folder
+  file: path={{ app.value.path }}/.git state=absent
+
 - set_fact:
     _apps_symfony_env_vars:
       APP_ENV: dev
