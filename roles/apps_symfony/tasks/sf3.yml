@@ -4,7 +4,7 @@
   get_url: url=http://symfony.com/installer dest=/usr/local/bin/symfony mode=a+x
 
 - name: Install the barebone Symfony app
-  shell: "symfony new symfony_tmp {{ app.value.symfony_version }} && cp -r symfony_tmp/. ./ && rm -rf symfony_tmp"
+  shell: "symfony new {{ app.value.name }} {{ app.value.symfony_version }} && cp -r {{ app.value.name }}/. ./ && rm -rf {{ app.value.name }}"
   args:
     chdir: "{{ app.value.path }}"
     creates: "{{ app.value.path }}/app"

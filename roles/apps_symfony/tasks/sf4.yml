@@ -1,7 +1,7 @@
 ---
 
 - name: Install the barebone Symfony app
-  shell: "composer create-project symfony/website-skeleton symfony_tmp && cp -r symfony_tmp/. ./ && rm -rf symfony_tmp"
+  shell: "composer create-project symfony/website-skeleton {{ app.value.name }} && cp -r {{ app.value.name }}/. ./ && rm -rf {{ app.value.name }}"
   args:
     chdir: "{{ app.value.path }}"
     creates: "{{ app.value.path }}/config"
