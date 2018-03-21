@@ -4,8 +4,8 @@
   file:
     path: "{{ app.value.public_path }}"
     state: directory
-    owner: "{{ app.value.owner|default(ansible_ssh_user) }}"
-    group: "{{ app.value.group|default(ansible_ssh_user) }}"
+    owner: "{{ app.value.owner|default('vagrant') }}"
+    group: "{{ app.value.group|default('vagrant') }}"
     mode: 0745
     recurse: yes
 
@@ -17,23 +17,24 @@
       file:
         path: "{{ app.value.path }}/{{ item }}"
         state: directory
-        owner: "{{ app.value.owner|default(ansible_ssh_user) }}"
-        group: "{{ app.value.group|default(ansible_ssh_user) }}"
+        owner: "{{ app.value.owner|default('vagrant') }}"
+        group: "{{ app.value.group|default('vagrant') }}"
         mode: 0745
         recurse: yes
       with_items: "{{ app.value.writable_resources }}"
 
-    - name: Set permissions for the web user on writable resources
+    - name: Set permissions for the web user and app's owner on the app's writable resources
       acl:
         path: "{{ app.value.path }}/{{ item[0] }}"
         etype: user
-        entity: "{{ php_fpm.user }}"
+        entity: "{{ item[1] }}"
         permissions: rwx
-        default: "{{ item[1] }}"
+        default: "{{ item[2] }}"
         recursive: yes
         state: present
       with_nested:
         - "{{ app.value.writable_resources }}"
+        - ["{{ php_fpm.user }}", "{{ app.value.owner|default('vagrant') }}"]
         - [yes, no]
 
     - name: Set permissions masks on writable resources

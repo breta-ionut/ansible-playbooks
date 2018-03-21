@@ -10,17 +10,18 @@
     owner: "{{ app.value.owner|default('vagrant') }}"
     group: "{{ app.value.group|default('vagrant') }}"
 
-- name: Set permissions for the web user on writable resources
+- name: Set permissions for the web user and app's owner on the app's writable resources
   acl:
     path: "{{ app.value.path }}/{{ item[0] }}"
     etype: user
-    entity: "{{ php_fpm.user }}"
+    entity: "{{ item[1] }}"
     permissions: rwx
-    default: "{{ item[1] }}"
+    default: "{{ item[2] }}"
     recursive: yes
     state: present
   with_nested:
     - "{{ _apps_symfony_writable_resources[app.value.symfony_version|int] }}"
+    - ["{{ php_fpm.user }}", "{{ app.value.owner|default('vagrant') }}"]
     - [yes, no]
 
 - name: Set permissions masks on writable resources
