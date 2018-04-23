@@ -61,6 +61,7 @@
 
 - name: Do yarn install
   shell: "yarn install --non-interactive --silent"
+  args:
     chdir: "{{ app.value.path }}"
   environment: "{{ app.value.environment|default({}) }}"
   when: app.value.yarn|default(false)
