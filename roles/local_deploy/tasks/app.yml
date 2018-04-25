@@ -60,7 +60,7 @@
   when: app.value.npm|default(false)
 
 - name: Do yarn install
-  shell: "yarn install --non-interactive --silent"
+  shell: yarn install --non-interactive --silent
   args:
     chdir: "{{ app.value.path }}"
   environment: "{{ app.value.environment|default({}) }}"
