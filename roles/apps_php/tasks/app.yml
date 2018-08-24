@@ -10,7 +10,7 @@
     recurse: yes
 
 - name: Ensure the existence of the app index file
-  template: src=app/index.php.tpl dest={{ app.value.public_path}}/{{ app.value.index }}.php
+  template: src=index.php.tpl dest={{ app.value.public_path}}/{{ app.value.index }}.php
 
 - block:
     - name: Ensure the existence of the app writable resources
