@@ -2,5 +2,6 @@
 # On finalize deploy hook.
 
 - name: Update the database schema
-  command: "php bin/console doctrine:schema:update --force"
-  args: chdir={{ app.value.path }}
+  command: php bin/console doctrine:schema:update --force
+  args:
+    chdir: "{{ app.value.path }}"
