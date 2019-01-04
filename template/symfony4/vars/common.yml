@@ -3,6 +3,7 @@
 php:
   version: "7.3"
   extensions:
+    - php7.3-apcu
     - php7.3-mysql
     - php7.3-xml
     - php7.3-mbstring
