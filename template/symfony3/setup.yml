@@ -1,11 +1,11 @@
 ---
 
-- name: Set up the server with a PHP application
+- name: Set up the server with a Symfony 3 project
   hosts: localhost
   become: yes
 
   vars_files:
-    - vars/php.yml
+    - vars/common.yml
 
   roles:
     - server
@@ -15,5 +15,5 @@
     - nginx_https
     - samba
     - composer
-    - apps_php
+    - apps_symfony
     # - local_deploy
