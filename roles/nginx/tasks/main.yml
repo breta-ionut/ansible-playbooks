@@ -3,6 +3,10 @@
 - name: Remove Apache2
   package: name=apache2 state=absent
 
+- name: Add the Ubuntu Bionic Nginx repository key
+  apt_key: keyserver=keyserver.ubuntu.com id=ABF5BD827BD9BF62
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "bionic"
+
 - name: Add the Nginx official repository
   apt_repository:
     repo: "deb http://nginx.org/packages/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} nginx"
