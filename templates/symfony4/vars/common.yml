@@ -15,7 +15,7 @@ php:
   xdebug: true
 
 node:
-  version: 9
+  version: 10
   yarn: true
 
 apps_symfony:
